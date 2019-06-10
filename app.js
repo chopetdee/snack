@@ -96,9 +96,6 @@ passport.use(new GoogleStrategy({
                         roll
                     });
                 })
-                Project.findOne({ where: {title: 'aProject'} }).then(project => {
-                    // project will be the first entry of the Projects table with the title 'aProject' || null
-                })
             }
             // setCookie(req.cookies['snackToken']);
 
