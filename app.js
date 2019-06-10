@@ -79,8 +79,8 @@ passport.use(new GoogleStrategy({
                             session[cookieToken].admin = false;
                         }
                     }
-                    console.log("all session");
-                    console.log(session);
+                    console.log("Complete auth");
+                    return done(err, session);
                 })
                 .catch(err => { //got error finding user, attemt to create new one
                     User.create({
@@ -94,8 +94,7 @@ passport.use(new GoogleStrategy({
                 })
             }
             // setCookie(req.cookies['snackToken']);
-            console.log("Complete auth");
-            return done();
+
         }
 ));
 // route
@@ -131,7 +130,7 @@ app.get('/auth/google',
 //         failureRedirect: '/'
 // }));
 app.get('/connect/google/callback',
-  passport.authenticate('google', { failureRedirect: '/' }),
+  passport.authenticate('google', { failureRedirect: '/products' }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');
@@ -157,7 +156,6 @@ function setCookie(res, cookieToken, snackFullName){
     return cookieToken
 }
 function autoLogin(cookieToken){
-    let cookieToken = cookieToken || "KZoxlKV5NyG1a1F2RNrOOYeKhzOYDCVk"
     let userObj = {};
     if (!cookieToken || cookieToken === 'undefined' || cookieToken == "") {
         res.cookie('snackFullName', "");
