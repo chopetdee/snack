@@ -47,6 +47,7 @@ passport.use(new GoogleStrategy({
         var roll = "user";
 
         var cookieToken = request.cookies['snackToken'];
+        console.log("found cookie: "+ cookieToken);
         session[cookieToken] = {};
         if (profile._json.domain == 'wildskymedia.com') {
                 session[cookieToken].token = token;
@@ -123,22 +124,24 @@ app.get('/convert/:url', (req, res, next) =>{
   }).on("error", (err) => { res.send("Worng!"); });
 });
 
-app.get('/auth/google',
-  passport.authenticate('google', { scope:
-      [ 'https://www.googleapis.com/auth/plus.login',
-      , 'https://www.googleapis.com/auth/plus.profile.emails.read' ] }
-));
+// app.get('/auth/google',
+//   passport.authenticate('google', { scope:
+//       [ 'https://www.googleapis.com/auth/plus.login',
+//       , 'https://www.googleapis.com/auth/plus.profile.emails.read' ] }
+// ));
 // app.get('/connect/google/callback',
 //     passport.authenticate( 'google', {
 //         successRedirect: '/',
 //         failureRedirect: '/'
 // }));
 app.get('/connect/google/callback',
-  passport.authenticate('google', { failureRedirect: '/products/page/1' }),
+  passport.authenticate('google', {
+    successRedirect: '/',
+    failureRedirect: '/products/page/1' }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');
-  });
+});
 app.get('/logout', (req, res) => {
     let cookieToken = req.cookies['snackToken'];
     res.clearCookie("key");
