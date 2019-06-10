@@ -46,7 +46,7 @@ passport.use(new GoogleStrategy({
         var user_name = profile.emails[0].value;
         var roll = "user";
 
-        var cookieToken = request.cookies['token'];
+        var cookieToken = request.cookies['snackToken'];
         session[cookieToken] = {};
         if (profile._json.domain == 'wildskymedia.com') {
                 session[cookieToken].token = token;
@@ -56,7 +56,7 @@ passport.use(new GoogleStrategy({
 
                 User.findOne({ where: { google_id:google_id} })
                 .then( users => {
-                    if (users == null || users.length < 1){
+                    if (users == null || users.length < 1){ //can't find user
                         User.create({
                             google_id,
                             full_name,
@@ -65,7 +65,7 @@ passport.use(new GoogleStrategy({
                             roll
                         });
                         console.log("Create account properly");
-                    } else {
+                    } else { //found user and update data
                         users.update({
                             google_id: google_id,
                             name: full_name,
@@ -83,7 +83,7 @@ passport.use(new GoogleStrategy({
                         console.log(session[cookieToken].admin);
                     }
                 })
-                .catch(err => {
+                .catch(err => { //got error finding user, attemt to create new one
                     User.create({
                         google_id,
                         full_name,
@@ -94,27 +94,20 @@ passport.use(new GoogleStrategy({
                     console.log("Got error finding but still can create and keep going");
                 })
             }
+            // setCookie(req.cookies['snackToken']);
+            console.log("Complete auth");
             return done();
         }
 ));
 // route
 app.get('/', (req, res) => {
 let cookie = req.cookies.seerid;
-// console.log(cookie)
-// res.cookie('snackFullName', "Phuriphat Petdee");
-// res.cookie('snackToken', "ya29.GmLMBpUgUThr-LxR8OOZOCS9GWaP_4NF2n4EaoncpyQ3I4egDbYqh68nxrVIcR4qhgIJFp4xk9kb4WNw8VEXuGnOECXdN_Ec-HpySddl0P0G4KW3_DwYK9qXWRamBmFAnekXLw");
     console.log("//////////////////////////");
-    let cookieToken = setCookie(req, res);
+    // let cookieToken = setCookie(res);
     res.render('help', {
         user_name: session[cookieToken].full_name,
         roll: session[cookieToken].roll })
 });
-// app.get('/', (req, res) =>  {
-//     let cookieToken = setCookie(req, res);
-//     res.render('help', {
-//         user_name: session[cookieToken].full_name,
-//         admin: session[cookieToken].admin
-// })});
 
 // Gig routes
 app.use('/products', require('./routes/products'));
@@ -139,28 +132,27 @@ app.get('/connect/google/callback',
 }));
 
 app.get('/logout', (req, res) => {
-    let cookieToken = setCookie(req, res);
+    let cookieToken = req.cookies['snackToken'];
     res.clearCookie("key");
-    session[cookieToken] = null;
-
+    if (!cookieToken || cookieToken === 'undefined') {
+        session[cookieToken] = null;
+    }
     res.render('index', { layout: 'landing' })
 });
 
 // const PORT = 3000;
 const PORT = 80;
-function setCookie(req, res){
-    let cookieToken = req.cookies['token'];
+function setCookie(res, cookieToken, snackFullName){
     if (!cookieToken || cookieToken === 'undefined') {
         let cookieToken = randomstring.generate(32);
-        res.cookie('token', cookieToken);
-        res.cookie('snackFullName', "snackFullName");
-        res.cookie('snackToken', "snackToken");
+        res.cookie('snackFullName', snackFullName);
+        res.cookie('snackToken', cookieToken);
     }
     if (!session[cookieToken] || typeof session[cookieToken] === 'undefined' || cookieToken === 'undefined') {  session[cookieToken] = {};  }
     return cookieToken
 }
 function autoLogin(cookieToken){
-    let cookieToken = "ya29.GmLMBpUgUThr-LxR8OOZOCS9GWaP_4NF2n4EaoncpyQ3I4egDbYqh68nxrVIcR4qhgIJFp4xk9kb4WNw8VEXuGnOECXdN_Ec-HpySddl0P0G4KW3_DwYK9qXWRamBmFAnekXLw"
+    let cookieToken = cookieToken || "ya29.GmLMBpUgUThr-LxR8OOZOCS9GWaP_4NF2n4EaoncpyQ3I4egDbYqh68nxrVIcR4qhgIJFp4xk9kb4WNw8VEXuGnOECXdN_Ec-HpySddl0P0G4KW3_DwYK9qXWRamBmFAnekXLw"
     let userObj = {};
     if (!cookieToken || cookieToken === 'undefined' || cookieToken == "") {
         res.cookie('snackFullName', "");
