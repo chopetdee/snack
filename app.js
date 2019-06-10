@@ -146,7 +146,8 @@ app.get('/logout', (req, res) => {
     res.render('index', { layout: 'landing' })
 });
 
-const PORT = 3000;
+// const PORT = 3000;
+const PORT = 80;
 function setCookie(req, res){
     let cookieToken = req.cookies['token'];
     if (!cookieToken || cookieToken === 'undefined') {
