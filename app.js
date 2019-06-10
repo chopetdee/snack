@@ -83,7 +83,7 @@ passport.use(new GoogleStrategy({
                         }
                     }
                     console.log("Complete auth");
-                    return done(session);
+                    return done();
                 })
                 .catch(err => { //got error finding user, attemt to create new one
                     console.log(err);
