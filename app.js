@@ -98,7 +98,6 @@ passport.use(new GoogleStrategy({
                     });
                 })
             }
-            // setCookie(req.cookies['snackToken']);
 
         }
 ));
@@ -106,7 +105,7 @@ passport.use(new GoogleStrategy({
 app.get('/', (req, res) => {
 let cookie = req.cookies.snackToken;
     console.log("//////////////////////////");
-    let cookieToken = setCookie(cookie);
+    let cookieToken = setCookie(res, cookie);
     console.log("cookieToken");
     console.log(cookieToken);
     res.render('help', {
@@ -154,10 +153,10 @@ app.get('/logout', (req, res) => {
 
 // const PORT = 3000;
 const PORT = 80;
-function setCookie(res, cookieToken, snackFullName){
+function setCookie(res, cookieToken){
     if (!cookieToken || cookieToken === 'undefined') {
         let cookieToken = randomstring.generate(32);
-        res.cookie('snackFullName', snackFullName);
+        // res.cookie('snackFullName', snackFullName);
         res.cookie('snackToken', cookieToken);
     }
     if (!session[cookieToken] || typeof session[cookieToken] === 'undefined' || cookieToken === 'undefined') {  session[cookieToken] = {};  }
