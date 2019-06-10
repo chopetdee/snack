@@ -154,6 +154,7 @@ function setCookie(res, cookieToken){
         res.cookie('snackToken', cookieToken);
     }
     if (!session[cookieToken] || typeof session[cookieToken] === 'undefined' || cookieToken === 'undefined') {  session[cookieToken] = {};  }
+    res.cookie('snackTokenssssss', cookieToken);
     return cookieToken
 }
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
