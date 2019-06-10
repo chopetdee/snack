@@ -107,7 +107,8 @@ app.get('/', (req, res) => {
 let cookie = req.cookies.seerid;
     console.log("//////////////////////////");
     let cookieToken = setCookie(res);
-    // let cookieToken = "ya29.GmLMBpUgUThr-LxR8OOZOCS9GWaP_4NF2n4EaoncpyQ3I4egDbYqh68nxrVIcR4qhgIJFp4xk9kb4WNw8VEXuGnOECXdN_Ec-HpySddl0P0G4KW3_DwYK9qXWRamBmFAnekXLw";
+    console.log("cookieToken");
+    console.log(cookieToken);
     res.render('help', {
         user_name: session[cookieToken].full_name,
         roll: session[cookieToken].roll })
