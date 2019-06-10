@@ -206,7 +206,7 @@ router.post('/add', (req, res) => {
         product_url
     } = req.body;
     let ban = 0;
-    if (allows.includes(product_decription)){ return res.send("block");  }
+    if (!allows.includes(product_decription)){ return res.send("block");  }
     if (session[cookieToken].google_id){
         let errors = [];
         Product.findAll({ where: { lotus_id: lotus_id } })
