@@ -53,10 +53,11 @@ passport.use(new GoogleStrategy({
                 session[cookieToken].roll = roll;
                 session[cookieToken].full_name = full_name;
                 session[cookieToken].google_id = google_id;
-
+                console.log("finding user");
                 User.findOne({ where: { google_id:google_id} })
                 .then( users => {
                     if (users == null || users.length < 1){ //can't find user
+                    console.log("can't find user create new one");
                         User.create({
                             google_id,
                             full_name,
@@ -66,6 +67,7 @@ passport.use(new GoogleStrategy({
                         });
                         console.log("Create account properly");
                     } else { //found user and update data
+                        console.log("found user so update it");
                         users.update({
                             google_id: google_id,
                             name: full_name,
@@ -83,6 +85,7 @@ passport.use(new GoogleStrategy({
                     return done(err, session);
                 })
                 .catch(err => { //got error finding user, attemt to create new one
+                    console.log("got error finding user, attemt to create new one");
                     User.create({
                         google_id,
                         full_name,
