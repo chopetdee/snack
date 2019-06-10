@@ -307,11 +307,18 @@ const allows = [
 ];
 
 function setCookie(res, cookieToken){
-    if (!cookieToken || cookieToken === 'undefined' || cookieToken == '') {
-        let cookieToken = randomstring.generate(32);
+    if (!cookieToken || cookieToken === 'undefined') {
+        let cookieToken = ran32();
         res.cookie('snackToken', cookieToken);
     }
     if (!session[cookieToken] || typeof session[cookieToken] === 'undefined' || cookieToken === 'undefined') {  session[cookieToken] = {};  }
     return cookieToken
+}
+function ran32(){
+    let gen = randomstring.generate(32);
+    while (gen in session){
+        gen = randomstring.generate(32);
+    }
+    return gen;
 }
 module.exports = router;

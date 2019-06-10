@@ -142,19 +142,25 @@ app.get('/logout', (req, res) => {
     if (!cookieToken || cookieToken === 'undefined') {
         session[cookieToken] = null;
     }
-    res.cookie('snackToken', "");
+    res.cookie('snackToken', ran32());
     res.render('index', { layout: 'landing' })
 });
 
 // const PORT = 3000;
 const PORT = 80;
 function setCookie(res, cookieToken){
-    if (!cookieToken || cookieToken === 'undefined' || cookieToken == '') {
-        let cookieToken = randomstring.generate(32);
+    if (!cookieToken || cookieToken === 'undefined') {
+        let cookieToken = ran32();
         res.cookie('snackToken', cookieToken);
     }
     if (!session[cookieToken] || typeof session[cookieToken] === 'undefined' || cookieToken === 'undefined') {  session[cookieToken] = {};  }
-    res.cookie('snackTokenssssss', cookieToken);
     return cookieToken
+}
+function ran32(){
+    let gen = randomstring.generate(32);
+    while (gen in session){
+        gen = randomstring.generate(32);
+    }
+    return gen;
 }
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
