@@ -104,9 +104,9 @@ passport.use(new GoogleStrategy({
 ));
 // route
 app.get('/', (req, res) => {
-let cookie = req.cookies.seerid;
+let cookie = req.cookies.snackToken;
     console.log("//////////////////////////");
-    let cookieToken = setCookie(req.cookies['snackToken']);
+    let cookieToken = setCookie(cookie);
     console.log("cookieToken");
     console.log(cookieToken);
     res.render('help', {
