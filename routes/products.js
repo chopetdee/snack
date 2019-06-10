@@ -13,7 +13,7 @@ const limit = 30; //limit item perpage
 
 // Get Product list
 router.get('/page/:page', (req, res) => {
-    let cookieToken = setCookie(req, res);
+    let cookieToken = setCookie(res, req.cookies.snackToken);
 
     let count = [];
     Product.hasMany(Favorite, {foreignKey: 'product_id'});
@@ -61,7 +61,7 @@ router.get('/page/:page', (req, res) => {
 
 //for admin
 router.get('/ban/:page', (req, res) =>{
-    let cookieToken = setCookie(req, res);
+    let cookieToken = setCookie(res, req.cookies.snackToken);
 
     let count = [];
     Product.findAll({where: { ban: 1 }}).then(products =>{
@@ -94,7 +94,7 @@ router.get('/ban/:page', (req, res) =>{
 //for each member
 
 router.get('/feeling/:felt/:page', (req, res) => {
-    let cookieToken = setCookie(req, res);
+    let cookieToken = setCookie(res, req.cookies.snackToken);
 
     let count = [];
     Product.hasMany(Favorite, {foreignKey: 'product_id'});
@@ -161,7 +161,7 @@ router.post('/banItem', (req, res) => {
     .catch(err => { res.send("Fail"); });
 });
 router.post('/expressFelling', (req, res) => {
-    let cookieToken = setCookie(req, res);
+    let cookieToken = setCookie(res, req.cookies.snackToken);
 
 //      UPDATE `products` SET `love` = '0' , `hate` = '0' , `favorite` = '0' WHERE 1;
     if(session[cookieToken].google_id){
@@ -187,8 +187,7 @@ router.post('/expressFelling', (req, res) => {
 
 // Display add Product form
 router.get('/add', (req, res) => {
-    let cookieToken = setCookie(req, res);
-
+    let cookieToken = setCookie(res, req.cookies.snackToken);
     res.render('add', {
     user_name: session[cookieToken].full_name,
     admin: session[cookieToken].admin
@@ -196,7 +195,7 @@ router.get('/add', (req, res) => {
 // Add a Product
 router.post('/add', (req, res) => {
     console.log('/add');
-    let cookieToken = setCookie(req, res);
+    let cookieToken = setCookie(res, req.cookies.snackToken);
 
     var ress = "none";
     let {
@@ -242,7 +241,7 @@ router.post('/add', (req, res) => {
 
 // Search for products
 router.get('/search', (req, res) => {
-    let cookieToken = setCookie(req, res);
+    let cookieToken = setCookie(res, req.cookies.snackToken);
 
     let { term } = req.query;
     Product.findAll({
@@ -307,11 +306,10 @@ const allows = [
     "Lollipop"
 ];
 
-function setCookie(req, res){
-    let cookieToken = req.cookies['token'];
+function setCookie(res, cookieToken){
     if (!cookieToken || cookieToken === 'undefined') {
         let cookieToken = randomstring.generate(32);
-        res.cookie('token', cookieToken, { maxAge: 900000, httpOnly: true });
+        res.cookie('snackToken', cookieToken);
     }
     if (!session[cookieToken] || typeof session[cookieToken] === 'undefined' || cookieToken === 'undefined') {  session[cookieToken] = {};  }
     return cookieToken

@@ -55,7 +55,6 @@ passport.use(new GoogleStrategy({
                 session[cookieToken].full_name = full_name;
                 session[cookieToken].google_id = google_id;
                 console.log("finding user");
-
                 User.findOne({ where: { google_id:google_id} })
                 .then( users => {
                     if (users == null || users.length < 1){ //can't find user
@@ -98,16 +97,12 @@ passport.use(new GoogleStrategy({
                     });
                 })
             }
-
         }
 ));
 // route
 app.get('/', (req, res) => {
-let cookie = req.cookies.snackToken;
     console.log("//////////////////////////");
-    let cookieToken = setCookie(res, cookie);
-    console.log("cookieToken");
-    console.log(cookieToken);
+    let cookieToken = setCookie(res, req.cookies.snackToken);
     res.render('help', {
         user_name: session[cookieToken].full_name,
         roll: session[cookieToken].roll })
@@ -161,28 +156,5 @@ function setCookie(res, cookieToken){
     }
     if (!session[cookieToken] || typeof session[cookieToken] === 'undefined' || cookieToken === 'undefined') {  session[cookieToken] = {};  }
     return cookieToken
-}
-function autoLogin(cookieToken){
-    let userObj = {};
-    if (!cookieToken || cookieToken === 'undefined' || cookieToken == "") {
-        res.cookie('snackFullName', "");
-        res.cookie('snackToken', "");
-    } else {
-        User.findOne({ where: { token:cookieToken} })
-        .then( users => {
-            if (users != null){
-                userObj.token = users.dataValues.token;
-                userObj.roll = users.dataValues.roll;
-                userObj.full_name = users.dataValues.name;
-                userObj.google_id = users.dataValues.google_id;
-                userObj.login = true;
-            } else {
-                res.cookie('snackFullName', "");
-                res.cookie('snackToken', "");
-                userObj.login = false;
-            }
-            console.log(userObj);
-        })
-    }
 }
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
