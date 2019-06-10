@@ -1,0 +1,359 @@
+<script>
+    function allHandleDragOver(e) {
+      if (e.preventDefault) {
+        e.preventDefault(); // Necessary. Allows us to drop.
+      }
+    }
+    function allHandleDragEnter(e) {
+      if (e.preventDefault) {
+        e.preventDefault(); // Necessary. Allows us to drop.
+      }
+    }
+    function allHandleDrop(e) {
+      if (e.preventDefault) {
+        e.preventDefault(); // Necessary. Allows us to drop.
+      }
+    }
+    function handleDrop(e) {
+      if (e.preventDefault) {
+        e.preventDefault(); // Necessary. Allows us to drop.
+      }
+      try {
+        dataValue = event.dataTransfer.getData('text/uri-list');
+        dataType = 'text/uri-list';
+      } catch (e) {
+        dataValue = event.dataTransfer.getData('URL');
+        dataType = 'URL';
+      }
+      $('#linkDup'+e.target.id).text(dataValue);
+      $('#'+e.target.id).val(dataValue);
+      console.log(dataValue);
+      GetLotus(e.target.id,dataValue);
+    }
+</script>
+<section class="container all">
+    {{#if user_name}} {{#unless ban}}
+        <div class="form-wrap all" style="padding:10px;">
+            <form action="javascript:GetLotus('indx',$('#indx').val());" method="POST" id="new">
+                <input id="indx" type="text" name="shopping" class="form-control inputs" placeholder="Drop or enter the url here...."></input>
+                <script>$("#indx").on('drop', handleDrop);</script>
+                <!-- <div id="cartItem">
+                </div> -->
+                <!-- <input type="submit" value="Add Product" class="btn btn-reverse"> -->
+            </form>
+            <button value="Add Product" class="btn btn-success" onclick="GetLotus('indx',$('#indx').val())">Add New</button>
+        </div>
+    {{/unless}} {{/if}}
+    <br>
+    <div id="add">{{#each products}}
+            <input id="currentFeeling{{lotus_id}}" type="hidden" value="{{feeling}}">
+            <table class="product gig" id="{{lotus_id}}">
+              <tr class="itemName">
+                <td>
+                    <h4><a href='https://shoponline.tescolotus.com/groceries/en-GB/products/{{lotus_id}}' target="+_blank">{{product_name}}</a></h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                  <div class="productImg">
+                    <img src="{{product_url}}">
+                  </div>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <div class="text-left productText ">
+                    {{product_decription}}
+                </td>
+            </tr>
+            <tr>
+                <td class="text-left">
+                    Price: {{product_price}}
+                </td>
+            <tr>
+            </tr>
+                <td id="favorite">
+                  <div class="product likeImg">
+                    <img id="favoriteImg{{lotus_id}}"
+                    {{#unless  current_favorite}} class="oppa " {{/unless }}
+                    {{#if ../user_name}} onclick="expressFelling({{lotus_id}}, 'favorite',{{id}})" {{/if}}
+                    src="/img/heart.png">
+                    <span id="favorite{{lotus_id}}">{{favorite}}</span>
+                    <span class="tooltiptext">This is my first choice.</span>
+                  </div>
+
+                  <div class="product likeImg">
+                    <img id="loveImg{{lotus_id}}"
+                    {{#unless current_love}} class="oppa " {{/unless }}
+                    {{#if ../user_name}} onclick="expressFelling({{lotus_id}}, 'love',{{id}})" {{/if}}
+                    src="/img/up.png">
+                    <span id="love{{lotus_id}}">{{love}}</span>
+                    <span class="tooltiptext">I can eat if there is nothing else.</span>
+                  </div>
+
+                  <div class="product likeImg">
+                    <img id="hateImg{{lotus_id}}"
+                    {{#unless  current_hate}} class="oppa " {{/unless }}
+                    {{#if ../user_name}} onclick="expressFelling({{lotus_id}}, 'hate','{{id}}')" {{/if}}
+                    src="/img/down.png">
+                    <span id="hate{{lotus_id}}">{{hate}}</span>
+                    <span class="tooltiptext">I will never eat this.</span>
+                  </div>
+                </td>
+                <!-- $("#{{feeling}}Img").attr("class", ""); -->
+                {{#if ../admin}} <td id="favorite">
+                  <!-- <div class="product likeImg"> -->
+                    <img src="/img/ban.png"
+                    {{#if ban}}
+                        onclick='ban({{lotus_id}})'>
+                        <p>UnBan</p>
+                    {{else}}
+                        onclick='ban({{lotus_id}})' class="oppa ">
+                        <p>Ban</p>
+                    {{/if}}
+                  <!-- </div> -->
+                </td> {{/if}}
+              </tr>
+            </table>
+        {{else}}
+          <p>No snack, add some!</p>
+        {{/each}}
+
+        <p> Page </p>
+        {{#each count}}
+            <b><a class="page" id="page{{this}}"href="javascript:void(0);" onclick="changePage({{this}})">{{this}}</a></b>
+        {{/each}}
+    </div>
+</section>
+<script>
+    $("#page"+location.href.substr(-1)).attr('class', "page isDisabled");
+    function ban(id){
+        loading();
+      if(confirm("Are you sure to Ban this item?")){
+        $.ajax({
+            url: '/products/banItem',
+            type: 'post',
+            data: { lotus_id: id },
+        }).done(function(data) {
+          if (data == "Updated"){
+            $('#'+id).attr('display','none');
+            $('#'+id).attr('class','hidden');
+          }
+          loaded();
+        });
+        } else {
+            loaded();
+
+        }
+    }
+    function changePage(page){
+        loading();
+        let local = location.href;
+        local = local.slice(0, -1)+page;
+        window.location.href = local;
+    }
+    function expressFelling(lotus_id, felt, product_id){
+      loading();
+      $.ajax({
+          url: '/products/expressFelling',
+          type: 'post',
+          data: { lotus_id:lotus_id, felt:felt, product_id},
+      })
+      .done(function(data) {
+        if (data == "success"){
+          $('#hateImg'+lotus_id).attr("class", "oppa ");
+          $('#loveImg'+lotus_id).attr("class", "oppa ");
+          $('#favoriteImg'+lotus_id).attr("class", "oppa ");
+          $('#'+felt+'Img'+lotus_id).attr("class", "");
+          $('#'+felt+lotus_id).text( parseInt($('#'+felt+lotus_id).text())+1 );
+
+          let currentFeeling = $('#currentFeeling'+lotus_id).attr('value');
+          let currentFeelingVal = $('#'+currentFeeling+lotus_id).text();
+          $('#'+currentFeeling+lotus_id).text( parseInt(currentFeelingVal)-1 );
+          $('#currentFeeling'+lotus_id).attr('value', felt);
+        }
+        loaded();
+      });
+    }
+
+    function extract(product, text){
+      temp = text;
+      temp = temp.split('<h1 class="product-details-tile__title">');
+      temp = temp[1].split('</h1><div class="review-stats">');
+      product.name = temp[0];
+
+      temp = temp[1].split('<img src="');
+      temp = temp[1].split('" srcSet="');
+      product.img = temp[0];
+      temp = temp[1].split('</span><span class="space"> </span><span data-auto="price-value" class="value">');
+      temp = temp[1].split('</span></span></div></div></div>');
+      product.price = temp[0];
+
+      temp = temp[1].split('button-multiline">View all ');
+      temp = temp[1].split('</a></div></div></div></div></div><div><div data-breakpoint="small"');
+      product.cat = temp[0];
+    }
+    function GetLotus(id,link){
+      loading();
+      let product = {}
+      product.base = "https://shoponline.tescolotus.com/groceries/en-GB/products/";
+      product.link = link;
+      var temp = link.split('/products/');
+      if (temp.length < 2) {
+          aletShow("Oups!, ", " invalid link. too short", "danger");
+          openInNewTab(link);
+          $('#indx').val("");
+          loaded();
+          return;
+      } else if (temp[0] != "https://shoponline.tescolotus.com/groceries/en-GB") {
+          aletShow("Oups!, ", " invalid link. pattern", "danger");
+          openInNewTab(link);
+          $('#indx').val("");
+          loaded();
+          return;
+      }
+      console.log("out");
+      product.id = temp[1];
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log("out1");
+                extract(product, xhr.responseText);
+                console.log("out2");
+                $.ajax({
+                    url: '/products/add',
+                    type: 'post',
+                    data: { product_name:product.name, product_price:product.price , product_decription:product.cat, lotus_id:product.id, product_url:product.img},
+                }).done(function(data) {
+                    if (data == "update"){
+                        aletShow("Just so you know, ", " we already have this product, just look around.", "success");
+                        $('#indx').val("");
+                    } else if (data == "ban"){
+                        aletShow("Oups!, ", " this product is in the ban list.", "danger");
+                        $('#indx').val("");
+                    } else if (data == "fail"){
+                        aletShow("Oups! ", "Something went wrong, try again later.", "danger");
+                    } else if (data == "not login"){
+                        aletShow( "", "Only member can suggest new snack.", "danger");
+                        $('#indx').val("");
+                    } else if (data == "block"){
+                        aletShow("This category is not allowed, ", " please see the help session.", "danger");
+                        $('#indx').val("");
+                    } else {
+                        aletShow("Success, ", " give it a love!", "success");
+                        createBox(data.id, product.id, data.product_name, product.img, 0, product.cat, product.price, {{session.admin}});
+                        $('#indx').val("");
+                    }
+                    console.log("out3");
+                    loaded();
+                });
+            }
+      };
+      xhr.open("GET", "/convert/"+product.id);
+      // xhr.open("GET", "http://localhost:5000/convert/"+product.id);
+      xhr.send();
+    }
+    function createBox(pid, lid, product_name, product_url, banBool, product_decription, product_price, admin){
+        let main = $("#add");
+          $(".all").on('drop', allHandleDrop);
+          $(".all").on('dragover', allHandleDragOver);
+
+          let hiden = $("<input></input>");
+          main.prepend(hiden);
+          hiden.attr("id", 'currentFeeling'+lid);
+          hiden.attr("type", 'hidden');
+          hiden.attr("value", 'natural');
+          let table = $("<table></table>");
+          main.prepend(table);
+          table.attr("class", 'product gig');
+          table.attr("id", lid);
+              let tr = $("<tr></tr>");
+              tr.appendTo(table);
+                let td1 = $("<td></td>");
+                td1.appendTo(tr);
+                    let td1h3 = $("<h3></h3>");
+                    td1h3.appendTo(td1);
+                        let td1h3a = $("<a></a>");
+                        td1h3a.appendTo(td1h3);
+                        td1h3a.attr("href", 'https://shoponline.tescolotus.com/groceries/en-GB/products/'+lid);
+                        td1h3a.attr("target", '+_blank');
+                        td1h3a.text( product_name);
+                    let td1div1 = $("<div></div>");
+                    td1div1.appendTo(td1);
+                    td1div1.attr("class", 'productImg');
+                        let td1div1img = $("<img></img>");
+                        td1div1img.appendTo(td1div1);
+                        td1div1img.attr("src", product_url);
+                    let td1div2 = $("<div></div>");
+                    td1div2.appendTo(td1);
+                    td1div2.attr("class", 'productText');
+                        let td1div2p1 = $("<p></p>");
+                        td1div2p1.appendTo(td1div2);
+                        td1div2p1.text( product_decription);
+                        let td1div2p2 = $("<p></p>");
+                        td1div2p2.appendTo(td1div2);
+                        td1div2p2.text( "Price: "+product_price);
+                        if (banBool){
+                            let td1div2p3 = $("<p></p>");
+                            td1div2p3.appendTo(td1div2);
+                            td1div2p3.text("Available: No");
+                        } else {
+                            let td1div2p4 = $("<p></p>");
+                            td1div2p4.appendTo(td1div2);
+                            td1div2p4.text("Available: Yes");
+                        }
+                let td2 = createImgFeeling(lid, pid, "favorite", "/img/heart.png");
+                td2.appendTo(tr);
+                let td3 = createImgFeeling(lid, pid, "love", "/img/up.png");
+                td3.appendTo(tr);
+                let td4 = createImgFeeling(lid, pid, "hate", "/img/down.png");
+                td4.appendTo(tr);
+                {{#if admin}}
+                    let td5 = createImgFeeling(lid, pid, "ban", "/img/ban.png");
+                    td5.appendTo(tr);
+                    td5.attr('onClick', 'ban('+lid+')');
+                {{/if}}
+              // if (admin){
+              //     let td5 = $("<td></td>");
+              //     td5.appendTo(tr);
+              //     td5.attr("id", "favorite");
+              //         let td5div = $("<div></div>");
+              //         td5div.appendTo(td5);
+              //         td5div.attr("class", "product likeImg");
+              //             let td5divimg = $("<img></img>");
+              //             td5divimg.appendTo(td5div);
+              //             td5divimg.attr("src", "https://cdn.pixabay.com/photo/2013/07/12/19/05/no-food-154333_960_720.png");
+              //             td5divimg.onclick = function(){ ban(lid) };
+              //             let td5divp = $("<p></p>");
+              //             td5divp.appendTo(td5div);
+              //             td5divp.attr("test", "Ban");
+              // }
+    }
+    function createImgFeeling(lid, pid, feeling, pic){
+        let td = $("<td></td>");
+        td.attr("id", "favorite");
+            let tddiv = $("<div></div>");
+            tddiv.appendTo(td);
+            tddiv.attr("class", "product likeImg");
+                let tddivimg = $("<img></img>");
+                tddivimg.appendTo(tddiv);
+                tddivimg.attr("id", feeling+"Img"+lid);
+                tddivimg.attr("class", "oppa ");
+                // tddivimg.onclick = function(){expressFelling(lid, feeling, pid)};
+                tddivimg.attr('onClick', 'expressFelling('+lid+', \''+feeling+'\', '+pid+')');
+                tddivimg.attr("src", pic);
+                let tddivp = $("<p></p>");
+                tddivp.appendTo(tddiv);
+                tddivp.attr("id", feeling+lid);
+                tddivp.text( "0");
+                let tddivspan = $("<span></span>");
+                tddivspan.appendTo(tddiv);
+                tddivspan.attr("class", "tooltiptext");
+                tddivspan.text( "This is my first choice.");
+        return td;
+    }
+    function openInNewTab(url) {
+      var win = window.open(url, '_blank');
+      win.focus();
+    }
+</script>

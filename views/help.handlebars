@@ -1,0 +1,98 @@
+<script>
+    var allowLinks = {
+        "Beverages": [
+            ["All Beverages", "/groceries/en-GB/shop/beverages-snacks-and-desserts/beverages/all?include-children=true"],
+            ["Essence &amp; Healthy Drinks", "/groceries/en-GB/shop/beverages-snacks-and-desserts/beverages/essence-and-healthy-drinks?include-children=true"],
+            ["Sports &amp; Energy Drinks", "/groceries/en-GB/shop/beverages-snacks-and-desserts/beverages/sports-and-energy-drinks?include-children=true"],
+            ["Mixers", "/groceries/en-GB/shop/beverages-snacks-and-desserts/beverages/mixers?include-children=true"],
+            ["Soft Drinks", "/groceries/en-GB/shop/beverages-snacks-and-desserts/beverages/soft-drinks?include-children=true"],
+            ["Syrup", "/groceries/en-GB/shop/beverages-snacks-and-desserts/beverages/syrup?include-children=true"],
+            ["Tonic", "/groceries/en-GB/shop/beverages-snacks-and-desserts/beverages/tonic?include-children=true"],
+            ["Hot Cereal", "/groceries/en-GB/shop/beverages-snacks-and-desserts/beverages/hot-cereal?include-children=true"],
+        ],
+        "Juice": [
+            ["All Juice", "/groceries/en-GB/shop/beverages-snacks-and-desserts/juices/all?include-children=true"],
+            ["Local Drink", "/groceries/en-GB/shop/beverages-snacks-and-desserts/juices/local-drink?include-children=true"],
+            ["Vegetable Juice", "/groceries/en-GB/shop/beverages-snacks-and-desserts/juices/vegetable-juice?include-children=true"],
+            ["Concentrated Juice", "/groceries/en-GB/shop/beverages-snacks-and-desserts/juices/concentrated-juice?include-children=true"],
+            ["Premium 100% Juice", "/groceries/en-GB/shop/beverages-snacks-and-desserts/juices/premium-100-juice?include-children=true"],
+            ["Economy &amp; Medium Juice", "/groceries/en-GB/shop/beverages-snacks-and-desserts/juices/economy-and-medium-juice?include-children=true"],
+            ["Sparkling Juice", "/groceries/en-GB/shop/beverages-snacks-and-desserts/juices/sparkling-juice?include-children=true"],
+        ],
+        "Milk": [
+            ["All Milk", "/groceries/en-GB/shop/beverages-snacks-and-desserts/milk/all?include-children=true"],
+            ["UHT Tonic", "/groceries/en-GB/shop/beverages-snacks-and-desserts/milk/uht-tonic?include-children=true"],
+            ["UHT Soybean", "/groceries/en-GB/shop/beverages-snacks-and-desserts/milk/uht-soybean?include-children=true"],
+            ["UHT Yogurt", "/groceries/en-GB/shop/beverages-snacks-and-desserts/milk/uht-yogurt?include-children=true"],
+            ["UHT Milk", "/groceries/en-GB/shop/beverages-snacks-and-desserts/milk/uht-milk?include-children=true"],
+            ["Sterilized Milk", "/groceries/en-GB/shop/beverages-snacks-and-desserts/milk/sterilized-milk?include-children=true"],
+            ["Fresh Milk", "/groceries/en-GB/shop/beverages-snacks-and-desserts/milk/fresh-milk?include-children=true"],
+        ],
+        "Coffee": [
+            ["All Coffee", "/groceries/en-GB/shop/beverages-snacks-and-desserts/coffee/all?include-children=true"],
+            ["Cold Coffee", "/groceries/en-GB/shop/beverages-snacks-and-desserts/coffee/cold-coffee?include-children=true"],
+            ["Hot Coffee", "/groceries/en-GB/shop/beverages-snacks-and-desserts/coffee/hot-coffee?include-children=true"],
+            ["Creams &amp; Sugar", "/groceries/en-GB/shop/beverages-snacks-and-desserts/coffee/creams-and-sugar?include-children=true"],
+        ],
+        "Tea": [
+            ["All Tea", "/groceries/en-GB/shop/beverages-snacks-and-desserts/tea/all?include-children=true"],
+            ["Ready To Drink", "/groceries/en-GB/shop/beverages-snacks-and-desserts/tea/ready-to-drink?include-children=true"],
+            ["Hot Tea", "/groceries/en-GB/shop/beverages-snacks-and-desserts/tea/hot-tea?include-children=true"],
+        ],
+        "Snack": [
+            ["All Snack", "/groceries/en-GB/shop/beverages-snacks-and-desserts/snacks/all?include-children=true"],
+            ["Snack", "/groceries/en-GB/shop/beverages-snacks-and-desserts/snacks/snack?include-children=true"],
+            ["Popcorn", "/groceries/en-GB/shop/beverages-snacks-and-desserts/snacks/popcorn?include-children=true"],
+            ["Other Dried Snack", "/groceries/en-GB/shop/beverages-snacks-and-desserts/snacks/other-dried-snack?include-children=true"],
+            ["Chocolates", "/groceries/en-GB/shop/beverages-snacks-and-desserts/snacks/chocolates?include-children=true"],
+            ["Biscuits", "/groceries/en-GB/shop/beverages-snacks-and-desserts/snacks/biscuits?include-children=true"],
+            ["Seasoned Squid", "/groceries/en-GB/shop/beverages-snacks-and-desserts/snacks/seasoned-squid?include-children=true"],
+            ["Preserved Dry Fruits", "/groceries/en-GB/shop/beverages-snacks-and-desserts/snacks/preserved-dry-fruits?include-children=true"],
+            ["Chips", "/groceries/en-GB/shop/beverages-snacks-and-desserts/snacks/chips?include-children=true"],
+            ["Candy", "/groceries/en-GB/shop/beverages-snacks-and-desserts/snacks/candy?include-children=true"],
+            ["Seasoned Seaweed", "/groceries/en-GB/shop/beverages-snacks-and-desserts/snacks/seasoned-seaweed?include-children=true"],
+            ["Chewing Gum", "/groceries/en-GB/shop/beverages-snacks-and-desserts/snacks/chewing-gum?include-children=true"],
+        ],
+        "Ice Cream & Desserts": [
+            ["All Ice Cream & Desserts", "/groceries/en-GB/shop/beverages-snacks-and-desserts/ice-cream-and-desserts/all?include-children=true"],
+            ["Cake", "/groceries/en-GB/shop/beverages-snacks-and-desserts/ice-cream-and-desserts/cake?include-children=true"],
+            ["Dessert", "/groceries/en-GB/shop/beverages-snacks-and-desserts/ice-cream-and-desserts/dessert?include-children=true"],
+            ["Ice Cream", "/groceries/en-GB/shop/beverages-snacks-and-desserts/ice-cream-and-desserts/ice-cream?include-children=true"],
+            ["Ice Cream With Cone", "/groceries/en-GB/shop/beverages-snacks-and-desserts/ice-cream-and-desserts/ice-cream-with-cone?include-children=true"],
+            ["Lollipop", "/groceries/en-GB/shop/beverages-snacks-and-desserts/ice-cream-and-desserts/lollipop?include-children=true"],
+        ]
+    };
+</script>
+<section  class="container all">
+    <div class="form-wrap all ">
+        <h1>Help</h1>
+        <h3>How to add?</h3>
+        <span>1. Drag the link from Lotus page to the add box.</span><br>
+        <span>2. Copy the url from Lotus page and press Add.</span><br>
+        <a href='https://shoponline.tescolotus.com/groceries/en-GB/products/6004074513' target="_blank">
+            Eg: https://shoponline.tescolotus.com/groceries/en-GB/products/6004074513</a>
+
+        <h3>What is allowed?</h3>
+        <script>
+            Object.keys(allowLinks).forEach((element) => {
+              document.write(`<a target='_blank' href='https://shoponline.tescolotus.com${allowLinks[element][0][1]}'>${element}</a><br>`);
+            });
+        </script>
+
+        <h3>What is what?</h3>
+        <span><b>Ban: </b></span>
+        <span>Only the Admin can ban and un-ban. If you have the request go talk to the Admin!</span>
+        <br>
+        <br>
+        <span><b>Love: </b></span>
+        <span>This is your favarite snack, which you will always want to eat.</span>
+        <br>
+        <br>
+        <span><b>Like: </b></span>
+        <span>This might be a snack that other poeple vote, even though you don't love it, but you can eat it.</span>
+        <br>
+        <br>
+        <span><b>Hate: </b></span>
+        <span>Something that you see in the shelf for years and no one ever eat it. Vote it out!</span>
+    </div>
+</section>

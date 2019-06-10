@@ -1,0 +1,156 @@
+<section id="add" class="container all">
+    <div class="form-wrap all container">
+      <h1>Add A Product</h1>
+      <form action="/products/add" method="POST" id="new">
+        <div id="cartItem">
+        </div>
+        <!-- <input type="submit" value="Add Product" class="btn btn-reverse"> -->
+        <button value="Add Product" class="btn btn-reverse">Add New</button>
+      </form>
+    </div>
+</section>
+
+  <script>
+    function addProduct(){
+      let box = $("<input>");
+      box.attr("id", 'box'+indx);
+      box.attr("class", "all boxs col-xs-4");
+      box.attr("display", "block");
+      box.appendTo( "#new" );
+    }
+    function extract(product, text){
+      temp = text;
+      temp = temp.split('<h1 class="product-details-tile__title">');
+      temp = temp[1].split('</h1><div class="review-stats">');
+      product.name = temp[0];
+
+      temp = temp[1].split('<img src="');
+      temp = temp[1].split('" srcSet="');
+      product.img = temp[0];
+
+      temp = temp[1].split('฿</span><span class="space"> </span><span data-auto="price-value" class="value">');
+      temp = temp[1].split('</span></span></div></div></div>');
+      product.price = temp[0];
+
+      temp = temp[1].split('button-multiline">View all ');
+      temp = temp[1].split('</a></div></div></div></div><div><div data-breakpoint="small"');
+      product.cat = temp[0];
+    }
+    function GetLotus(id,link){
+      let product = {}
+      product.base = "https://shoponline.tescolotus.com/groceries/en-GB/products/";
+      product.link = link;
+      var temp = link.split('/products/');
+      product.id = temp[1];
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          extract(product, xhr.responseText);
+          $("#img"+id).attr("src",product.img);
+          $("#name"+id).text(product.name);
+          $("#cat"+id).text(product.cat);
+          $("#price"+id).text("฿"+product.price);
+          let boxs = $('.boxs');
+          let last = boxs[boxs.length-1];
+          if ( $('#box'+id)[0] == last){
+            createBox(boxs.length);
+          }
+          var request = $.ajax({
+              url: '/products/add',
+              type: 'post',
+              data: { product_name:product.name, product_price:product.price , product_decription:product.cat, product_id:product.id, product_url:product.img},
+              // contentType: 'application/json; charset=utf-8'
+          });
+          request.done(function(data) {
+            console.log("----------------------------------------------------------------");
+            console.log(data);
+            console.log("----------------------------------------------------------------");
+          });
+        }
+      };
+      xhr.open("GET", "http://localhost:5000/convert/"+product.id);
+      xhr.send();
+    }
+    function createBox(indx){
+      let box = $("<div></div>");
+      box.attr("id", 'box'+indx);
+      box.attr("class", "all boxs col-xs-4");
+      box.attr("display", "block");
+
+      let img = $("<img></img>");
+      img.attr("id", 'img'+indx);
+      img.attr("style", 'min-height:150px; min-width:150px;');
+      img.attr("class", "all col-xs-4 new");
+      img.attr("display", "block");
+
+      let linkDup = $("<p></p>");
+      linkDup.attr("id", 'linkDup'+indx);
+      linkDup.attr("class", "all dupInps hidden new");
+
+      let cat = $("<p></p>");
+      cat.attr("id", 'cat'+indx);
+      cat.attr("class", 'all new');
+
+      let name = $("<p></p>");
+      name.attr("id", 'name'+indx);
+      name.attr("class", 'all new');
+
+      let price = $("<p></p>");
+      price.attr("id", 'price'+indx);
+      price.attr("class", 'all new');
+
+      let input = $("<input></input>");
+      input.attr("id", ''+indx);
+      input.attr("type", 'text');
+      input.attr("name", 'shopping');
+      input.attr("class", "form-control inputs");
+      input.attr("placeholder", 'Drop or enter the url here....');
+      input.on('drop', handleDrop);
+
+      box.appendTo( "#cartItem" );
+      img.appendTo(box);
+      cat.appendTo(box);
+      linkDup.appendTo(box);
+      name.appendTo(box);
+      price.appendTo(box);
+      input.appendTo(box);
+
+      $(".all").on('drop', allHandleDrop);
+      $(".all").on('dragover', allHandleDragOver);
+    }
+    $("input").on('drop', handleDrop);
+
+    function allHandleDragOver(e) {
+      if (e.preventDefault) {
+        e.preventDefault(); // Necessary. Allows us to drop.
+      }
+    }
+    function allHandleDragEnter(e) {
+      if (e.preventDefault) {
+        e.preventDefault(); // Necessary. Allows us to drop.
+      }
+    }
+    function allHandleDrop(e) {
+      if (e.preventDefault) {
+        e.preventDefault(); // Necessary. Allows us to drop.
+      }
+    }
+    function handleDrop(e) {
+      if (e.preventDefault) {
+        e.preventDefault(); // Necessary. Allows us to drop.
+      }
+      try {
+        dataValue = event.dataTransfer.getData('text/uri-list');
+        dataType = 'text/uri-list';
+      } catch (e) {
+        dataValue = event.dataTransfer.getData('URL');
+        dataType = 'URL';
+      }
+      $('#linkDup'+e.target.id).text(dataValue);
+      $('#'+e.target.id).val(dataValue);
+      GetLotus(e.target.id,dataValue);
+    }
+    createBox(0);
+    // $(".all").on('drop', allHandleDrop);
+    // $(".all").on('dragover', allHandleDragOver);
+  </script>

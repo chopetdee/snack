@@ -1,0 +1,18 @@
+<section id="gigs" class="container">
+    <h1>Ban Snack</h1>
+
+    {{#each products}}
+      <div class="gig">
+      <h3>{{product_name}}</h3>
+      <p>{{product_decription}}</p>
+      <p>Budget: {{product_price}}</p>
+      <!-- <a href="mailto:{{contact_email}}" class="btn btn-reverse">Apply Now</a> -->
+      <div class="tech">
+        <small><span>{{product_url}}</span></small>
+      </div>
+    </div>
+    {{else}}
+      <p>No gigs available</p>
+    {{/each}}
+
+  </section>
