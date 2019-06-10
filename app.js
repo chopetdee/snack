@@ -14,15 +14,15 @@ const Op = db.Op;
 var passport = require('passport');
 
 const app = express();
-app.use(cookieParser())
-app.use(express.static('public'))
+app.use(cookieParser());
+app.use(express.static('public'));
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
   cookie: { secure: true }
-}))
+}));
 
 // Handlebars
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
