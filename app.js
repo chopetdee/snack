@@ -42,7 +42,7 @@ passport.use(new GoogleStrategy({
     function(request, accessToken, refreshToken, profile, done) {
         var google_id = profile.id;
         var full_name = profile.displayName;
-        var token =accessToken;
+        var token = accessToken;
         var user_name = profile.emails[0].value;
         var roll = "user";
 
@@ -73,15 +73,14 @@ passport.use(new GoogleStrategy({
                             user_name: user_name,
                         });
                         session[cookieToken].roll = users.roll;
-                        console.log("Update account properly");
                         if (session[cookieToken].roll == "admin"){
                             session[cookieToken].admin = true;
                         } else {
                             session[cookieToken].admin = false;
                         }
-                        console.log(session[cookieToken].roll);
-                        console.log(session[cookieToken].admin);
                     }
+                    console.log("all session");
+                    console.log(session);
                 })
                 .catch(err => { //got error finding user, attemt to create new one
                     User.create({
@@ -126,12 +125,17 @@ app.get('/auth/google',
       [ 'https://www.googleapis.com/auth/plus.login',
       , 'https://www.googleapis.com/auth/plus.profile.emails.read' ] }
 ));
+// app.get('/connect/google/callback',
+//     passport.authenticate( 'google', {
+//         successRedirect: '/',
+//         failureRedirect: '/'
+// }));
 app.get('/connect/google/callback',
-    passport.authenticate( 'google', {
-        successRedirect: '/',
-        failureRedirect: '/'
-}));
-
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
 app.get('/logout', (req, res) => {
     let cookieToken = req.cookies['snackToken'];
     res.clearCookie("key");
@@ -153,7 +157,7 @@ function setCookie(res, cookieToken, snackFullName){
     return cookieToken
 }
 function autoLogin(cookieToken){
-    let cookieToken = cookieToken || "ya29.GmLMBpUgUThr-LxR8OOZOCS9GWaP_4NF2n4EaoncpyQ3I4egDbYqh68nxrVIcR4qhgIJFp4xk9kb4WNw8VEXuGnOECXdN_Ec-HpySddl0P0G4KW3_DwYK9qXWRamBmFAnekXLw"
+    let cookieToken = cookieToken || "KZoxlKV5NyG1a1F2RNrOOYeKhzOYDCVk"
     let userObj = {};
     if (!cookieToken || cookieToken === 'undefined' || cookieToken == "") {
         res.cookie('snackFullName', "");
