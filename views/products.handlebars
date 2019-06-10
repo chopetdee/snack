@@ -99,20 +99,20 @@
                     <span id="hate{{lotus_id}}">{{hate}}</span>
                     <span class="tooltiptext">I will never eat this.</span>
                   </div>
-                </td>
                 <!-- $("#{{feeling}}Img").attr("class", ""); -->
-                {{#if ../admin}} <td id="favorite">
-                  <div class="product likeImg">
-                    <img src="/img/ban.png"
-                    {{#if ban}}
-                        onclick='ban({{lotus_id}})'>
-                        <p>UnBan</p>
-                    {{else}}
-                        onclick='ban({{lotus_id}})' class="oppa ">
-                        <p>Ban</p>
+                    {{#if ../admin}}
+                      <div class="product likeImg">
+                        <img src="/img/ban.png"
+                        {{#if ban}}
+                            onclick='ban({{lotus_id}})'>
+                            <p>UnBan</p>
+                        {{else}}
+                            onclick='ban({{lotus_id}})' class="oppa ">
+                            <p>Ban</p>
+                        {{/if}}
+                      </div>
                     {{/if}}
-                  </div>
-                </td> {{/if}}
+                </td>
               </tr>
             </table>
         {{else}}
