@@ -54,8 +54,7 @@ passport.use(new GoogleStrategy({
                 session[cookieToken].full_name = full_name;
                 session[cookieToken].google_id = google_id;
                 console.log("finding user");
-                User.findOne({ where: { google_id:google_id} })
-                .then( users => {
+                User.findOne({ where: { google_id:google_id} }).then( users => {
                     if (users == null || users.length < 1){ //can't find user
                     console.log("can't find user create new one");
                         User.create({
@@ -83,8 +82,7 @@ passport.use(new GoogleStrategy({
                     }
                     console.log("Complete auth");
                     return done(err, session);
-                })
-                .catch(err => { //got error finding user, attemt to create new one
+                }).catch(err => { //got error finding user, attemt to create new one
                     console.log(err);
                     console.log("got error finding user, attemt to create new one");
                     User.create({
