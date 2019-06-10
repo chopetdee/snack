@@ -83,7 +83,7 @@ passport.use(new GoogleStrategy({
                         }
                     }
                     console.log("Complete auth");
-                    return done();
+                    return done(users);
                 })
                 .catch(err => { //got error finding user, attemt to create new one
                     console.log(err);
@@ -134,7 +134,7 @@ app.get('/auth/google',
 //         failureRedirect: '/'
 // }));
 app.get('/connect/google/callback',
-  passport.authenticate('google', { failureRedirect: '/products' }),
+  passport.authenticate('google', { failureRedirect: '/products/page/1' }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');
