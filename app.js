@@ -106,7 +106,7 @@ passport.use(new GoogleStrategy({
 app.get('/', (req, res) => {
 let cookie = req.cookies.seerid;
     console.log("//////////////////////////");
-    let cookieToken = setCookie(req.cookies['snackToken'];);
+    let cookieToken = setCookie(req.cookies['snackToken']);
     console.log("cookieToken");
     console.log(cookieToken);
     res.render('help', {
@@ -138,7 +138,7 @@ app.get('/auth/google',
 app.get('/connect/google/callback',
   passport.authenticate('google', {
     successRedirect: '/',
-    failureRedirect: '/products/page/1' }),
+    failureRedirect: '/' }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');
