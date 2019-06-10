@@ -143,14 +143,14 @@ app.get('/logout', (req, res) => {
     if (!cookieToken || cookieToken === 'undefined') {
         session[cookieToken] = null;
     }
-    res.cookie('snackToken', null);
+    res.cookie('snackToken', "");
     res.render('index', { layout: 'landing' })
 });
 
 // const PORT = 3000;
 const PORT = 80;
 function setCookie(res, cookieToken){
-    if (!cookieToken || cookieToken === 'undefined') {
+    if (!cookieToken || cookieToken === 'undefined' || cookieToken === '') {
         let cookieToken = randomstring.generate(32);
         // res.cookie('snackFullName', snackFullName);
         res.cookie('snackToken', cookieToken);
