@@ -85,6 +85,7 @@ passport.use(new GoogleStrategy({
                     return done(err, session);
                 })
                 .catch(err => { //got error finding user, attemt to create new one
+                    console.log(err);
                     console.log("got error finding user, attemt to create new one");
                     User.create({
                         google_id,
