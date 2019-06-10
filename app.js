@@ -131,7 +131,7 @@ app.get('/auth/google',
 //         failureRedirect: '/'
 // }));
 app.get('/connect/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google', { failureRedirect: '/' }),
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');
