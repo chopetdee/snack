@@ -55,7 +55,7 @@ a {
     transform: translate(-50%,-50%);
 }
 .itemName{
-    max-height: 60px;
+    max-height: 60px !important;
 }
 .flashText{
     display: table-cell;
