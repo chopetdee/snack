@@ -100,9 +100,9 @@ passport.use(new GoogleStrategy({
 // route
 app.get('/', (req, res) => {
 let cookie = req.cookies.seerid;
-console.log(cookie)
-res.cookie('snackFullName', "Phuriphat Petdee");
-res.cookie('snackToken', "ya29.GmLMBpUgUThr-LxR8OOZOCS9GWaP_4NF2n4EaoncpyQ3I4egDbYqh68nxrVIcR4qhgIJFp4xk9kb4WNw8VEXuGnOECXdN_Ec-HpySddl0P0G4KW3_DwYK9qXWRamBmFAnekXLw");
+// console.log(cookie)
+// res.cookie('snackFullName', "Phuriphat Petdee");
+// res.cookie('snackToken', "ya29.GmLMBpUgUThr-LxR8OOZOCS9GWaP_4NF2n4EaoncpyQ3I4egDbYqh68nxrVIcR4qhgIJFp4xk9kb4WNw8VEXuGnOECXdN_Ec-HpySddl0P0G4KW3_DwYK9qXWRamBmFAnekXLw");
     console.log("//////////////////////////");
     let cookieToken = setCookie(req, res);
     res.render('help', {
