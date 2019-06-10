@@ -307,7 +307,7 @@ const allows = [
 ];
 
 function setCookie(res, cookieToken){
-    if (!cookieToken || cookieToken === 'undefined' || cookieToken === '') {
+    if (!cookieToken || cookieToken === 'undefined' || cookieToken == '') {
         let cookieToken = randomstring.generate(32);
         res.cookie('snackToken', cookieToken);
     }

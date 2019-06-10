@@ -101,7 +101,6 @@ passport.use(new GoogleStrategy({
 ));
 // route
 app.get('/', (req, res) => {
-    console.log("//////////////////////////");
     let cookieToken = setCookie(res, req.cookies.snackToken);
     res.render('help', {
         user_name: session[cookieToken].full_name,
@@ -150,9 +149,8 @@ app.get('/logout', (req, res) => {
 // const PORT = 3000;
 const PORT = 80;
 function setCookie(res, cookieToken){
-    if (!cookieToken || cookieToken === 'undefined' || cookieToken === '') {
+    if (!cookieToken || cookieToken === 'undefined' || cookieToken == '') {
         let cookieToken = randomstring.generate(32);
-        // res.cookie('snackFullName', snackFullName);
         res.cookie('snackToken', cookieToken);
     }
     if (!session[cookieToken] || typeof session[cookieToken] === 'undefined' || cookieToken === 'undefined') {  session[cookieToken] = {};  }
