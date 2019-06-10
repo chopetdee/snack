@@ -143,7 +143,7 @@ app.get('/logout', (req, res) => {
     if (!cookieToken || cookieToken === 'undefined') {
         session[cookieToken] = null;
     }
-    res.cookie('snackToken', "");
+    res.cookie('snackToken', null);
     res.render('index', { layout: 'landing' })
 });
 
