@@ -54,7 +54,9 @@ passport.use(new GoogleStrategy({
                 session[cookieToken].full_name = full_name;
                 session[cookieToken].google_id = google_id;
                 console.log("finding user");
-                User.findOne({ where: { google_id:google_id} }).then( users => {
+
+                User.findOne({ where: { google_id:google_id} })
+                .then( users => {
                     if (users == null || users.length < 1){ //can't find user
                     console.log("can't find user create new one");
                         User.create({
@@ -72,7 +74,7 @@ passport.use(new GoogleStrategy({
                             name: full_name,
                             token: token,
                             user_name: user_name,
-                        });
+                        }).catch(err=> console.log(err));
                         session[cookieToken].roll = users.roll;
                         if (session[cookieToken].roll == "admin"){
                             session[cookieToken].admin = true;
@@ -82,7 +84,8 @@ passport.use(new GoogleStrategy({
                     }
                     console.log("Complete auth");
                     return done(err, session);
-                }).catch(err => { //got error finding user, attemt to create new one
+                })
+                .catch(err => { //got error finding user, attemt to create new one
                     console.log(err);
                     console.log("got error finding user, attemt to create new one");
                     User.create({
@@ -92,7 +95,9 @@ passport.use(new GoogleStrategy({
                         user_name,
                         roll
                     });
-                    console.log("Got error finding but still can create and keep going");
+                })
+                Project.findOne({ where: {title: 'aProject'} }).then(project => {
+                    // project will be the first entry of the Projects table with the title 'aProject' || null
                 })
             }
             // setCookie(req.cookies['snackToken']);
