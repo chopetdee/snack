@@ -106,7 +106,7 @@ passport.use(new GoogleStrategy({
 app.get('/', (req, res) => {
 let cookie = req.cookies.seerid;
     console.log("//////////////////////////");
-    let cookieToken = setCookie(res);
+    let cookieToken = setCookie(req.cookies['snackToken'];);
     console.log("cookieToken");
     console.log(cookieToken);
     res.render('help', {
@@ -128,11 +128,7 @@ app.get('/convert/:url', (req, res, next) =>{
 app.get('/auth/google',
   passport.authenticate('google', { scope:
       [ 'https://www.googleapis.com/auth/plus.login',
-      , 'https://www.googleapis.com/auth/plus.profile.emails.read' ] },
-      function(req, res) {
-        console.log("Successful authentication, redirect home.");
-        res.redirect('/');
-    }
+      , 'https://www.googleapis.com/auth/plus.profile.emails.read' ] }
 ));
 // app.get('/connect/google/callback',
 //     passport.authenticate( 'google', {
