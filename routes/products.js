@@ -17,6 +17,7 @@ router.get('/page/:page', (req, res) => {
     let product_query_name = "";
     if (!(parseInt(req.params.page))) {
         product_query_name = req.params.page;
+        req.params.page = 1;
         limit = 1000;
     }
 
