@@ -28,9 +28,10 @@ a {
   text-decoration: none;
 }
 #searchBox {
-    
+
 }
 #searchText {
+    margin-right: 0px;
     text-align: left;
     width: 207px;
 }
