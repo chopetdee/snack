@@ -29,12 +29,11 @@ a {
 }
 #searchBox {
     width: 207px;
-  -webkit-transition: width 2s; /* Safari prior 6.1 */
-  transition: width 2s;
 }
 #searchBox:focus {
     width: 415px;
     max-width: 415px;
+  background-color: yellow;
   -webkit-transition: width 2s; /* Safari prior 6.1 */
   transition: width 2s;
 }
