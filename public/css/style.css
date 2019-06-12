@@ -27,14 +27,19 @@ a {
   color: #fff;
   text-decoration: none;
 }
+#searchBox {
+    text-align: right;
+    width: 100%;
+}
 #searchText {
+    text-align: left;
     width: 207px;
 }
 #searchText:focus {
-    width: 415px;
+    width: 100%;
     max-width: 415px;
-  -webkit-transition: width 2s; /* Safari prior 6.1 */
-  transition: width 2s;
+  -webkit-transition: width 1s; /* Safari prior 6.1 */
+  transition: width 1s;
 }
 #flash{
     top: -80px;
