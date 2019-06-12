@@ -19,7 +19,7 @@ router.get('/page/:page', (req, res) => {
     let count = [];
     Product.hasMany(Favorite, {foreignKey: 'product_id'});
     Favorite.belongsTo(Product, {foreignKey: 'product_id'});
-    Product.findAll({where: { ban: 0 }}).then(products =>{
+    Product.findAll({where: { ban: 0 , product_name: {[Op.like]: '%coke%'}}}).then(products =>{
         count = [];
         for(let i = 0 ; i <= (products.length-1)/limit ; i++){
             count[i] = i+1;
@@ -32,7 +32,7 @@ router.get('/page/:page', (req, res) => {
             attributes: ['feeling', 'google_id'],
             // where: { google_id: session[cookieToken].google_id },
         }],
-        where: { ban: 0 },
+        where: { ban: 0 , product_name: {[Op.like]: '%coke%'}},
         // order: [ ['favorite', 'DESC'], ['love', 'DESC'] ],
         offset: (req.params.page - 1) * limit,
         limit: limit
@@ -107,7 +107,7 @@ router.get('/feeling/:felt/:page', (req, res) => {
             attributes: ['feeling', 'google_id'],
             where: { google_id: session[cookieToken].google_id, feeling:req.params.felt },
         }],
-        where: { ban: 0 , product_name: {[Op.like]: '%coke%'}}
+        where: { ban: 0 }
     })
         .then(products =>{
             for(let i = 0 ; i <= (products.length-1)/limit ; i++){
