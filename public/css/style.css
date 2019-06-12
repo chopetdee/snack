@@ -32,7 +32,8 @@ a {
 }
 #searchText {
     margin-right: 0px;
-    text-align: left;
+    margin-left: auto;
+    align: right;
     width: 207px;
 }
 #searchText:focus {
