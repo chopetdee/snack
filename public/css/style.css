@@ -27,6 +27,17 @@ a {
   color: #fff;
   text-decoration: none;
 }
+#searchBox {
+    width: 207px;
+  -webkit-transition: width 2s; /* Safari prior 6.1 */
+  transition: width 2s;
+}
+#searchBox:focus {
+    width: 100%;
+    max-width: 415px;
+  -webkit-transition: width 2s; /* Safari prior 6.1 */
+  transition: width 2s;
+}
 #flash{
     top: -80px;
     position:fixed;
