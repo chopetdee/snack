@@ -9,17 +9,22 @@ const Favorite = require('../models/Favorite');
 var randomstring = require("randomstring");
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-const limit = 30; //limit item perpage
-// const Op = Sequelize.Op;
+let limit = 30; //limit item perpage
 
 // Get Product list
 router.get('/page/:page', (req, res) => {
     let cookieToken = setCookie(res, req.cookies.snackToken);
+    let product_query_name = "";
+    let product_query_name = "";
+    if (!(parseInt(req.params.page))) {
+        product_query_name = req.params.page;
+        limit = 1000;
+    }
 
     let count = [];
     Product.hasMany(Favorite, {foreignKey: 'product_id'});
     Favorite.belongsTo(Product, {foreignKey: 'product_id'});
-    Product.findAll({where: { ban: 0 , product_name: {[Op.like]: "%"+""+"%"}} }).then(products =>{
+    Product.findAll({where: { ban: 0 , product_name: {[Op.like]: "%"+product_query_name+"%"}} }).then(products =>{
         count = [];
         for(let i = 0 ; i <= (products.length-1)/limit ; i++){
             count[i] = i+1;
@@ -32,7 +37,7 @@ router.get('/page/:page', (req, res) => {
             attributes: ['feeling', 'google_id'],
             // where: { google_id: session[cookieToken].google_id },
         }],
-        where: { ban: 0 , product_name: {[Op.like]: "%"+""+"%"} },
+        where: { ban: 0 , product_name: {[Op.like]: "%"+product_query_name+"%"} },
         // order: [ ['favorite', 'DESC'], ['love', 'DESC'] ],
         offset: (req.params.page - 1) * limit,
         limit: limit
