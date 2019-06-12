@@ -28,7 +28,7 @@ a {
   text-decoration: none;
 }
 #searchBox {
-    text-align: right;
+    align: right;
     width: 100%;
 }
 #searchText {
