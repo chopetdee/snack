@@ -15,7 +15,6 @@ let limit = 30; //limit item perpage
 router.get('/page/:page', (req, res) => {
     let cookieToken = setCookie(res, req.cookies.snackToken);
     let product_query_name = "";
-    let product_query_name = "";
     if (!(parseInt(req.params.page))) {
         product_query_name = req.params.page;
         limit = 1000;
