@@ -8,6 +8,7 @@ const User = require('../models/User');
 const Favorite = require('../models/Favorite');
 var randomstring = require("randomstring");
 const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 const limit = 30; //limit item perpage
 // const Op = Sequelize.Op;
 
@@ -106,13 +107,13 @@ router.get('/feeling/:felt/:page', (req, res) => {
             attributes: ['feeling', 'google_id'],
             where: { google_id: session[cookieToken].google_id, feeling:req.params.felt },
         }],
-        where: { ban: 0 }
+        where: { ban: 0 , product_name: {[Op.like]: '%coke%'}}
     })
-    .then(products =>{
-        for(let i = 0 ; i <= (products.length-1)/limit ; i++){
-            count[i] = i+1;
-        }
-    });
+        .then(products =>{
+            for(let i = 0 ; i <= (products.length-1)/limit ; i++){
+                count[i] = i+1;
+            }
+        });
     Product.findAll({
         include: [{
             model: Favorite,
@@ -125,26 +126,26 @@ router.get('/feeling/:felt/:page', (req, res) => {
         offset: (req.params.page - 1) * limit,
         limit: limit
     })
-    .then(products => {
-        for (var i = 0 ; i < products.length; i++) {
-            products[i].feeling = "natural";
-            if (products[i].favorites.length > 0){
-                for (var j = 0 ; j < products[i].favorites.length; j++) {
-                    if (products[i].favorites[j].google_id == session[cookieToken].google_id){
-                        products[i].feeling = products[i].favorites[j].feeling;
-                        products[i]["current_"+products[i].feeling] = true;
+        .then(products => {
+            for (var i = 0 ; i < products.length; i++) {
+                products[i].feeling = "natural";
+                if (products[i].favorites.length > 0){
+                    for (var j = 0 ; j < products[i].favorites.length; j++) {
+                        if (products[i].favorites[j].google_id == session[cookieToken].google_id){
+                            products[i].feeling = products[i].favorites[j].feeling;
+                            products[i]["current_"+products[i].feeling] = true;
+                        }
                     }
                 }
             }
-        }
-        res.render('products', {
-            products,
-            count: count,
-            user_name: session[cookieToken].full_name,
-            admin: session[cookieToken].admin
+            res.render('products', {
+                products,
+                count: count,
+                user_name: session[cookieToken].full_name,
+                admin: session[cookieToken].admin
+            })
         })
-    })
-    .catch(err => console.log(err))
+        .catch(err => console.log(err))
 });
 //for member to express there feeling
 router.post('/banItem', (req, res) => {
