@@ -27,13 +27,12 @@ a {
   color: #fff;
   text-decoration: none;
 }
-#searchBox {
+#searchText {
     width: 207px;
 }
-#searchBox:focus {
+#searchText:focus {
     width: 415px;
     max-width: 415px;
-  background-color: yellow;
   -webkit-transition: width 2s; /* Safari prior 6.1 */
   transition: width 2s;
 }
