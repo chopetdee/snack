@@ -44,9 +44,6 @@
             <form action="javascript:GetLotus('indx',$('#indx').val());" method="POST" id="new">
                 <input id="indx" type="text" name="shopping" class="form-control inputs" placeholder="Drop or enter the url here...."></input>
                 <script>$("#indx").on('drop', handleDrop);</script>
-                <!-- <div id="cartItem">
-                </div> -->
-                <!-- <input type="submit" value="Add Product" class="btn btn-reverse"> -->
             </form>
             <button value="Add Product" class="btn btn-success" onclick="GetLotus('indx',$('#indx').val())">Add New</button>
         </div>
@@ -57,7 +54,7 @@
             <input id="currentFeeling{{lotus_id}}" type="hidden" value="{{feeling}}">
             <table class="product gig" id="{{lotus_id}}">
               <tr class="itemName">
-                <td>
+                <td class="itemName">
                     <h4><a href='https://shoponline.tescolotus.com/groceries/en-GB/products/{{lotus_id}}' target="+_blank">{{product_name}}</a></h4>
                 </td>
             </tr>
@@ -301,25 +298,24 @@
                         let td1div2p2 = $("<p></p>");
                         td1div2p2.appendTo(td1div2);
                         td1div2p2.text( "Price: "+product_price);
-                        if (banBool){
-                            let td1div2p3 = $("<p></p>");
-                            td1div2p3.appendTo(td1div2);
-                            td1div2p3.text("Available: No");
-                        } else {
-                            let td1div2p4 = $("<p></p>");
-                            td1div2p4.appendTo(td1div2);
-                            td1div2p4.text("Available: Yes");
-                        }
                 let td2 = createImgFeeling(lid, pid, "favorite", "/img/heart.png");
-                td2.appendTo(tr);
+                    let tr2 = $("<tr></tr>");
+                    tr2.appendTo(table);
+                    td2.appendTo(tr2);
                 let td3 = createImgFeeling(lid, pid, "love", "/img/up.png");
-                td3.appendTo(tr);
+                    let tr3 = $("<tr></tr>");
+                    tr3.appendTo(table);
+                    td3.appendTo(tr3);
                 let td4 = createImgFeeling(lid, pid, "hate", "/img/down.png");
-                td4.appendTo(tr);
+                    let tr4 = $("<tr></tr>");
+                    tr4.appendTo(table);
+                    td4.appendTo(tr4);
                 {{#if admin}}
                     let td5 = createImgFeeling(lid, pid, "ban", "/img/ban.png");
-                    td5.appendTo(tr);
-                    td5.attr('onClick', 'ban('+lid+')');
+                        let tr5 = $("<tr></tr>");
+                        tr5.appendTo(table);
+                        td5.appendTo(tr5);
+                        td5.attr('onClick', 'ban('+lid+')');
                 {{/if}}
               // if (admin){
               //     let td5 = $("<td></td>");
@@ -347,7 +343,6 @@
                 tddivimg.appendTo(tddiv);
                 tddivimg.attr("id", feeling+"Img"+lid);
                 tddivimg.attr("class", "oppa ");
-                // tddivimg.onclick = function(){expressFelling(lid, feeling, pid)};
                 tddivimg.attr('onClick', 'expressFelling('+lid+', \''+feeling+'\', '+pid+')');
                 tddivimg.attr("src", pic);
                 let tddivp = $("<p></p>");
