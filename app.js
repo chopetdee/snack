@@ -123,12 +123,12 @@ app.get('/auth/google',
       [ 'https://www.googleapis.com/auth/plus.login'
       , 'https://www.googleapis.com/auth/plus.profile.emails.read'
   ]}
+  // app.get('/connect/google/callback',
+  //     passport.authenticate( 'google', {
+      //         successRedirect: '/',
+      //         failureRedirect: '/'
+      // }));
 ));
-// app.get('/connect/google/callback',
-//     passport.authenticate( 'google', {
-//         successRedirect: '/',
-//         failureRedirect: '/'
-// }));
 app.get('/connect/google/callback',
   passport.authenticate('google', {
     successRedirect: '/',
