@@ -303,8 +303,8 @@
 
             let trFavorite = $("<tr></tr>");
                 trFavorite.appendTo(table);
-                let tdFavorite = $("<td class='itemName'></td>");
-                    tdFavorite.appendTo(tdFavorite);
+                let tdFavorite = $("<td class='favorite'></td>");
+                    tdFavorite.appendTo(trFavorite);
                     let divFavorite1 = createImgFeeling(lid, pid, "favorite", "/img/heart.png");
                         divFavorite1.appendTo(tdFavorite);
                     let divFavorite2 = createImgFeeling(lid, pid, "love", "/img/up.png");
