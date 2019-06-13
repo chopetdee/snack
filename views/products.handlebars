@@ -37,7 +37,7 @@
 <section class="container all">
     {{#unless ban}}
         <form action="javascript:goToSearchPage()" method="POST" id="searchBox" align: "right">
-            <input id="searchText" type="text" name="searchText" class="form-control inputs" placeholder="Search..."></input>
+            <input id="searchText" type="text" name="searchText" autocomplete="off" class="form-control inputs" placeholder="Search..."></input>
         </form>
         {{#if user_name}}
         <div class="form-wrap all" style="padding:10px;">
