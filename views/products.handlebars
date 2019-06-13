@@ -75,7 +75,6 @@
                 <td class="text-left">
                     Price: {{product_price}}
                 </td>
-            <tr>
             </tr>
                 <td id="favorite">
                   <div class="product likeImg">
@@ -272,60 +271,54 @@
           main.prepend(table);
           table.attr("class", 'product gig');
           table.attr("id", lid);
-              let tr = $("<tr></tr>");
-              tr.appendTo(table);
-                let td1 = $("<td></td>");
-                td1.appendTo(tr);
-                    let td1h3 = $("<h4></h4>");
-                    td1h3.appendTo(td1);
-                        let td1h3a = $("<a></a>");
-                        td1h3a.appendTo(td1h3);
-                        td1h3a.attr("href", 'https://shoponline.tescolotus.com/groceries/en-GB/products/'+lid);
-                        td1h3a.attr("target", '+_blank');
-                        td1h3a.text( product_name);
-                    let td1div1 = $("<div></div>");
-                    td1div1.appendTo(td1);
-                    td1div1.attr("class", 'productImg');
-                        let td1div1img = $("<img></img>");
-                        td1div1img.appendTo(td1div1);
-                        td1div1img.attr("src", product_url);
-                    let td1div2 = $("<div></div>");
-                    td1div2.appendTo(td1);
-                    td1div2.attr("class", 'productText');
-                        let td1div2p1 = $("<p></p>");
-                        td1div2p1.appendTo(td1div2);
-                        td1div2p1.text( product_decription);
-                        let td1div2p2 = $("<p></p>");
-                        td1div2p2.appendTo(td1div2);
-                        td1div2p2.text( "Price: "+product_price);
-                let tr2 = $("<tr></tr>");
-                tr2.appendTo(table);
-                let td2 = createImgFeeling(lid, pid, "favorite", "/img/heart.png");
-                    td2.appendTo(tr2);
-                let td3 = createImgFeeling(lid, pid, "love", "/img/up.png");
-                    td3.appendTo(tr2);
-                let td4 = createImgFeeling(lid, pid, "hate", "/img/down.png");
-                    td4.appendTo(tr2);
-                {{#if admin}}
-                    let td5 = createImgFeeling(lid, pid, "ban", "/img/ban.png");
-                        td5.appendTo(tr2);
-                        td5.attr('onClick', 'ban('+lid+')');
-                {{/if}}
-              // if (admin){
-              //     let td5 = $("<td></td>");
-              //     td5.appendTo(tr);
-              //     td5.attr("id", "favorite");
-              //         let td5div = $("<div></div>");
-              //         td5div.appendTo(td5);
-              //         td5div.attr("class", "product likeImg");
-              //             let td5divimg = $("<img></img>");
-              //             td5divimg.appendTo(td5div);
-              //             td5divimg.attr("src", "https://cdn.pixabay.com/photo/2013/07/12/19/05/no-food-154333_960_720.png");
-              //             td5divimg.onclick = function(){ ban(lid) };
-              //             let td5divp = $("<p></p>");
-              //             td5divp.appendTo(td5div);
-              //             td5divp.attr("test", "Ban");
-              // }
+            let trTitle = $("<tr class='itemName'><td class='itemName'><h4></h4></td></tr>");
+                trTitle.appendTo(table);
+                    let title = $("<h4></h4>");
+                    title.appendTo(trTitle);
+                        let title.a = $("<a></a>");
+                        title.a.appendTo(title);
+                        title.a.attr("href", 'https://shoponline.tescolotus.com/groceries/en-GB/products/'+lid);
+                        title.a.attr("target", '+_blank');
+                        title.a.text( product_name);
+            let trImg = $("<tr><td></td></tr>");
+                trImg.appendTo(table);
+                    let divImg = $("<div></div>");
+                    divImg.appendTo(trImg);
+                    divImg.attr("class", 'productImg');
+                        let divImgImg = $("<img></img>");
+                        divImgImg.appendTo(divImg);
+                        divImgImg.attr("src", product_url);
+            let trCat = $("<tr><td></td></tr>");
+                trCat.appendTo(table);
+                    let divCat = $("<div></div>");
+                    divCat.appendTo(trCat);
+                    divCat.attr("class", 'productText');
+                        let divCatP1 = $("<p></p>");
+                        divCatP1.appendTo(divCat);
+                        divCatP1.text( product_decription);
+            let trPrice = $("<tr><td></td></tr>");
+                trPrice.appendTo(table);
+                    let divCat = $("<div></div>");
+                    divCat.appendTo(trPrice);
+                    divCat.attr("class", 'productText');
+                        let divCatP1 = $("<p></p>");
+                        divCatP1.appendTo(divCat);
+                        divCatP1.text("Price: "+product_price);
+
+            let trFavorite = $("<tr></tr>");
+                let tdFavorite = $("<td class='itemName'></td>");
+                    trFavorite.appendTo(table);
+                    let divFavorite1 = createImgFeeling(lid, pid, "favorite", "/img/heart.png");
+                        divFavorite1.appendTo(tdFavorite);
+                    let divFavorite2 = createImgFeeling(lid, pid, "love", "/img/up.png");
+                        divFavorite2.appendTo(tdFavorite);
+                    let divFavorite3 = createImgFeeling(lid, pid, "hate", "/img/down.png");
+                        divFavorite3.appendTo(tdFavorite);
+                    {{#if admin}}
+                        let divFavorite4 = createImgFeeling(lid, pid, "ban", "/img/ban.png");
+                            divFavorite4.appendTo(tdFavorite);
+                            divFavorite4.attr('onClick', 'ban('+lid+')');
+                    {{/if}}
     }
     function createImgFeeling(lid, pid, feeling, pic){
         // let td = $("<td></td>");
