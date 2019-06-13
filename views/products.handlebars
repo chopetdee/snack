@@ -32,7 +32,7 @@
     }
 </script>
 <section class="container all">
-        <form action="javascript:window.location.href = '/products/"+this.value+"';" method="POST" id="searchBox" align: "right">
+        <form action="javascript:window.location.href = '/products/page/"+this.value+"';" method="POST" id="searchBox" align: "right">
             <input id="searchText" type="text" name="searchText" class="form-control inputs" placeholder="Search..."></input>
         </form>
     {{#if user_name}} {{#unless ban}}
