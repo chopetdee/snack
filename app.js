@@ -41,7 +41,7 @@ passport.use(new GoogleStrategy({
     },
     function(request, accessToken, refreshToken, profile, done) {
         var google_id = profile.id;
-        var full_name = profile.displayName;
+        var name = profile.displayName;
         var token = accessToken;
         var user_name = profile.emails[0].value;
         var roll = "user";
@@ -52,7 +52,7 @@ passport.use(new GoogleStrategy({
         if (profile._json.domain == 'wildskymedia.com') {
                 session[cookieToken].token = token;
                 session[cookieToken].roll = roll;
-                session[cookieToken].full_name = full_name;
+                session[cookieToken].full_name = name;
                 session[cookieToken].google_id = google_id;
                 console.log("finding user");
                 User.findOne({ where: { google_id:google_id} })
@@ -61,7 +61,7 @@ passport.use(new GoogleStrategy({
                     console.log("can't find user create new one");
                         User.create({
                             google_id,
-                            full_name,
+                            name,
                             token,
                             user_name,
                             roll
@@ -71,7 +71,7 @@ passport.use(new GoogleStrategy({
                         console.log("found user so update it");
                         users.update({
                             google_id: google_id,
-                            name: full_name,
+                            name: name,
                             token: token,
                             user_name: user_name,
                         }).catch(err=> console.log(err));
@@ -90,7 +90,7 @@ passport.use(new GoogleStrategy({
                     console.log("got error finding user, attemt to create new one");
                     User.create({
                         google_id,
-                        full_name,
+                        name,
                         token,
                         user_name,
                         roll

@@ -8,12 +8,6 @@ const User = db.define('user', {
     name: {
         type: Sequelize.STRING
     },
-    first_name: {
-        type: Sequelize.STRING
-    },
-    last_name: {
-        type: Sequelize.STRING
-    },
     token: {
         type: Sequelize.STRING
     },
