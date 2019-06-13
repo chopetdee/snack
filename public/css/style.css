@@ -34,13 +34,13 @@ a {
     margin-right: 0px;
     margin-left: auto;
     align: right;
-    width: 207px;
+    width: 80px;
 }
 #searchText:focus {
     width: 100%;
-    max-width: 415px;
-  -webkit-transition: width 1s; /* Safari prior 6.1 */
-  transition: width 1s;
+    max-width: 240px;
+  -webkit-transition: width 2s; /* Safari prior 6.1 */
+  transition: width 2s;
 }
 #flash{
     top: -80px;
