@@ -80,21 +80,21 @@ router.get('/ban/:page', (req, res) =>{
         offset: (req.params.page - 1) * limit,
         limit: limit
     })
-    .then(products => {
-        Favorite.findAll({
-                where: {
-                    google_id: session[cookieToken].google_id
-                }
-            })
-            .then(favorites => {
-                // favorites.forEach(function(item) {
-                //     console.log("item");
-                //     console.log(item);
-                // })
-            });
-        res.render('products', { products, count:count, user_name: session[cookieToken].full_name , admin:session[cookieToken].admin, ban:true})
-    })
-    .catch(err => console.log(err))});
+        .then(products => {
+            Favorite.findAll({
+                    where: {
+                        google_id: session[cookieToken].google_id
+                    }
+                })
+                .then(favorites => {
+                    // favorites.forEach(function(item) {
+                    //     console.log("item");
+                    //     console.log(item);
+                    // })
+                });
+            res.render('products', { products, count:count, user_name: session[cookieToken].full_name , admin:session[cookieToken].admin, ban:true})
+        })
+        .catch(err => console.log(err))});
 //make admin
 
 //for each member

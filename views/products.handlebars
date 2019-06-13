@@ -30,12 +30,16 @@
       console.log(dataValue);
       GetLotus(e.target.id,dataValue);
     }
+    function goToSearchPage(){
+        window.location.href = "/products/page/"+$('#searchText')[0].value;
+    }
 </script>
 <section class="container all">
-        <form action="javascript:window.location.href = '/products/page/"+this.value+"';" method="POST" id="searchBox" align: "right">
+    {{#unless ban}}
+        <form action="javascript:goToSearchPage()" method="POST" id="searchBox" align: "right">
             <input id="searchText" type="text" name="searchText" class="form-control inputs" placeholder="Search..."></input>
         </form>
-    {{#if user_name}} {{#unless ban}}
+        {{#if user_name}}
         <div class="form-wrap all" style="padding:10px;">
             <form action="javascript:GetLotus('indx',$('#indx').val());" method="POST" id="new">
                 <input id="indx" type="text" name="shopping" class="form-control inputs" placeholder="Drop or enter the url here...."></input>
@@ -46,7 +50,8 @@
             </form>
             <button value="Add Product" class="btn btn-success" onclick="GetLotus('indx',$('#indx').val())">Add New</button>
         </div>
-    {{/unless}} {{/if}}
+        {{/if}}
+    {{/unless}}
     <br>
     <div id="add">{{#each products}}
             <input id="currentFeeling{{lotus_id}}" type="hidden" value="{{feeling}}">
