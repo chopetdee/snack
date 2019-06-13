@@ -298,12 +298,12 @@
                         divCatP1.text( product_decription);
             let trPrice = $("<tr><td></td></tr>");
                 trPrice.appendTo(table);
-                    let divCat = $("<div></div>");
-                    divCat.appendTo(trPrice);
-                    divCat.attr("class", 'productText');
-                        let divCatP1 = $("<p></p>");
-                        divCatP1.appendTo(divCat);
-                        divCatP1.text("Price: "+product_price);
+                    let divPrice = $("<div></div>");
+                    divPrice.appendTo(trPrice);
+                    divPrice.attr("class", 'productText');
+                        let divPriceP1 = $("<p></p>");
+                        divPriceP1.appendTo(divPrice);
+                        divPriceP1.text("Price: "+product_price);
 
             let trFavorite = $("<tr></tr>");
                 let tdFavorite = $("<td class='itemName'></td>");
