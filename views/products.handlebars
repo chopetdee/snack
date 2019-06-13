@@ -301,27 +301,24 @@
                     divPrice.attr("class", 'productText');
                         divPrice.text("Price: "+product_price);
 
-            let trFavorite = $("<tr></tr>");
+            let trFavorite = $("<tr class='favorite'></tr>");
                 trFavorite.appendTo(table);
-                let tdFavorite = $("<td class='favorite'></td>");
-                    tdFavorite.appendTo(trFavorite);
+                // let tdFavorite = $("<td class='favorite'></td>");
+                //     trFavorite.appendTo(trFavorite);
                     let divFavorite1 = createImgFeeling(lid, pid, "favorite", "/img/heart.png");
-                        divFavorite1.appendTo(tdFavorite);
+                        divFavorite1.appendTo(trFavorite);
                     let divFavorite2 = createImgFeeling(lid, pid, "love", "/img/up.png");
-                        divFavorite2.appendTo(tdFavorite);
+                        divFavorite2.appendTo(trFavorite);
                     let divFavorite3 = createImgFeeling(lid, pid, "hate", "/img/down.png");
-                        divFavorite3.appendTo(tdFavorite);
+                        divFavorite3.appendTo(trFavorite);
                     {{#if admin}}
                         let divFavorite4 = createImgFeeling(lid, pid, "ban", "/img/ban.png");
-                            divFavorite4.appendTo(tdFavorite);
+                            divFavorite4.appendTo(trFavorite);
                             divFavorite4.attr('onClick', 'ban('+lid+')');
                     {{/if}}
     }
     function createImgFeeling(lid, pid, feeling, pic){
-        // let td = $("<td></td>");
-        // td.attr("id", "favorite");
             let tddiv = $("<div></div>");
-        //     tddiv.appendTo(td);
             tddiv.attr("class", "product likeImg");
                 let tddivimg = $("<img></img>");
                 tddivimg.appendTo(tddiv);
@@ -337,7 +334,6 @@
                 tddivspan.appendTo(tddiv);
                 tddivspan.attr("class", "tooltiptext");
                 tddivspan.text( "This is my first choice.");
-        // return td;
         return tddiv;
     }
     function openInNewTab(url) {
