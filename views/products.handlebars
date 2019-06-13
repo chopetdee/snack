@@ -276,7 +276,7 @@
               tr.appendTo(table);
                 let td1 = $("<td></td>");
                 td1.appendTo(tr);
-                    let td1h3 = $("<h3></h3>");
+                    let td1h3 = $("<h4></h4>");
                     td1h3.appendTo(td1);
                         let td1h3a = $("<a></a>");
                         td1h3a.appendTo(td1h3);
@@ -298,9 +298,9 @@
                         let td1div2p2 = $("<p></p>");
                         td1div2p2.appendTo(td1div2);
                         td1div2p2.text( "Price: "+product_price);
+                let tr2 = $("<tr></tr>");
+                tr2.appendTo(table);
                 let td2 = createImgFeeling(lid, pid, "favorite", "/img/heart.png");
-                    let tr2 = $("<tr></tr>");
-                    tr2.appendTo(table);
                     td2.appendTo(tr2);
                 let td3 = createImgFeeling(lid, pid, "love", "/img/up.png");
                     td3.appendTo(tr2);
@@ -328,10 +328,10 @@
               // }
     }
     function createImgFeeling(lid, pid, feeling, pic){
-        let td = $("<td></td>");
-        td.attr("id", "favorite");
+        // let td = $("<td></td>");
+        // td.attr("id", "favorite");
             let tddiv = $("<div></div>");
-            tddiv.appendTo(td);
+        //     tddiv.appendTo(td);
             tddiv.attr("class", "product likeImg");
                 let tddivimg = $("<img></img>");
                 tddivimg.appendTo(tddiv);
@@ -347,7 +347,8 @@
                 tddivspan.appendTo(tddiv);
                 tddivspan.attr("class", "tooltiptext");
                 tddivspan.text( "This is my first choice.");
-        return td;
+        // return td;
+        return tddiv;
     }
     function openInNewTab(url) {
       var win = window.open(url, '_blank');
