@@ -293,21 +293,18 @@
                     let divCat = $("<div></div>");
                     divCat.appendTo(trCat);
                     divCat.attr("class", 'productText');
-                        let divCatP1 = $("<p></p>");
-                        divCatP1.appendTo(divCat);
-                        divCatP1.text( product_decription);
+                        divCat.text( product_decription);
             let trPrice = $("<tr><td></td></tr>");
                 trPrice.appendTo(table);
                     let divPrice = $("<div></div>");
                     divPrice.appendTo(trPrice);
                     divPrice.attr("class", 'productText');
-                        let divPriceP1 = $("<p></p>");
-                        divPriceP1.appendTo(divPrice);
-                        divPriceP1.text("Price: "+product_price);
+                        divPrice.text("Price: "+product_price);
 
             let trFavorite = $("<tr></tr>");
+                trFavorite.appendTo(table);
                 let tdFavorite = $("<td class='itemName'></td>");
-                    trFavorite.appendTo(table);
+                    tdFavorite.appendTo(tdFavorite);
                     let divFavorite1 = createImgFeeling(lid, pid, "favorite", "/img/heart.png");
                         divFavorite1.appendTo(tdFavorite);
                     let divFavorite2 = createImgFeeling(lid, pid, "love", "/img/up.png");
