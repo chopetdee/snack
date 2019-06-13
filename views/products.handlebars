@@ -303,18 +303,12 @@
                     tr2.appendTo(table);
                     td2.appendTo(tr2);
                 let td3 = createImgFeeling(lid, pid, "love", "/img/up.png");
-                    let tr3 = $("<tr></tr>");
-                    tr3.appendTo(table);
-                    td3.appendTo(tr3);
+                    td3.appendTo(tr2);
                 let td4 = createImgFeeling(lid, pid, "hate", "/img/down.png");
-                    let tr4 = $("<tr></tr>");
-                    tr4.appendTo(table);
-                    td4.appendTo(tr4);
+                    td4.appendTo(tr2);
                 {{#if admin}}
                     let td5 = createImgFeeling(lid, pid, "ban", "/img/ban.png");
-                        let tr5 = $("<tr></tr>");
-                        tr5.appendTo(table);
-                        td5.appendTo(tr5);
+                        td5.appendTo(tr2);
                         td5.attr('onClick', 'ban('+lid+')');
                 {{/if}}
               // if (admin){
