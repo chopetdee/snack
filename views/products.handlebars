@@ -275,11 +275,11 @@
                 trTitle.appendTo(table);
                     let title = $("<h4></h4>");
                     title.appendTo(trTitle);
-                        let title.a = $("<a></a>");
-                        title.a.appendTo(title);
-                        title.a.attr("href", 'https://shoponline.tescolotus.com/groceries/en-GB/products/'+lid);
-                        title.a.attr("target", '+_blank');
-                        title.a.text( product_name);
+                        let titleA = $("<a></a>");
+                        titleA.appendTo(title);
+                        titleA.attr("href", 'https://shoponline.tescolotus.com/groceries/en-GB/products/'+lid);
+                        titleA.attr("target", '+_blank');
+                        titleA.text( product_name);
             let trImg = $("<tr><td></td></tr>");
                 trImg.appendTo(table);
                     let divImg = $("<div></div>");
