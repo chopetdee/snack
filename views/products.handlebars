@@ -198,10 +198,9 @@
       product.cat = temp[0];
     }
     function extract(product, text){
-        temp = text;
-        temp = temp.split('<script type="application/\ld\+json">');
-        temp = temp[1].split('<\/script>');
-        console.log(temp);
+        temp = text.split('<script type="application\/ld\+json">');
+        temp = temp[1].split('</script>');
+        console.log(temp[0]);
         let productObj = JSON.parse(temp);
         console.log(productObj);
         product.name = productObj[3].productName;
