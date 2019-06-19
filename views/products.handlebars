@@ -200,9 +200,7 @@
     function extract(product, text){
         temp = text.split('<script type="application\/ld\+json">');
         temp = temp[1].split('<\/script>');
-        console.log(temp[0]);
         let productObj = JSON.parse(temp[0]);
-        console.log(productObj);
         product.name = productObj[3].productName;
         product.img = productObj[3]["gs1:image"];
         product.price = productObj[3].priceSpecification.price;
@@ -231,14 +229,13 @@
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                console.log("out1");
                 extract(product, xhr.responseText);
                 if (!product.name){
                     aletShow("Oups!, ", " invalid link (product id).", "danger");
                     loaded();
                     return;
                 }
-                console.log("out2");
+                console.log(product);
                 $.ajax({
                     url: '/products/add',
                     type: 'post',
