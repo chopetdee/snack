@@ -244,7 +244,7 @@
                     data: { product_name:product.name, product_price:product.price , product_decription:product.cat, lotus_id:product.id, product_url:product.img},
                 }).done(function(data) {
                     if (data == "update"){
-                        window.location.href = "/products/page/"+product.name;
+                        //window.location.href = "/products/page/"+product.name;
                         aletShow("Just so you know, ", " we already have this product.", "success");
                         $('#indx').val("");
                     } else if (data == "ban"){
