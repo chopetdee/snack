@@ -274,6 +274,7 @@ const allows = [
     "Hot Cereal",
     "All Juice",
     "Juice",
+    "Juices",
     "Local Drink",
     "Vegetable Juice",
     "Concentrated Juice",
