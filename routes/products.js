@@ -207,7 +207,7 @@ router.post('/add', (req, res) => {
     let {
         product_name,
         product_price,
-        product_decription,
+        product_decription, //its actually category
         lotus_id,
         product_url
     } = req.body;
@@ -264,6 +264,7 @@ router.get('/search', (req, res) => {
 
 const allows = [
     "All Beverages",
+    "Beverages",
     "Essence &amp; Healthy Drinks",
     "Sports &amp; Energy Drinks",
     "Mixers",
@@ -272,6 +273,7 @@ const allows = [
     "Tonic",
     "Hot Cereal",
     "All Juice",
+    "Juice",
     "Local Drink",
     "Vegetable Juice",
     "Concentrated Juice",
@@ -279,6 +281,7 @@ const allows = [
     "Economy &amp; Medium Juice",
     "Sparkling Juice",
     "All Milk",
+    "Milk",
     "UHT Tonic",
     "UHT Soybean",
     "UHT Yogurt",
@@ -286,13 +289,16 @@ const allows = [
     "Sterilized Milk",
     "Fresh Milk",
     "All Coffee",
+    "Coffee",
     "Cold Coffee",
     "Hot Coffee",
     "Creams &amp; Sugar",
     "All Tea",
+    "Tea",
     "Ready To Drink",
     "Hot Tea",
     "All Snack",
+    "Snack",
     "Popcorn",
     "Snack",
     "Other Dried Snack",
@@ -305,6 +311,7 @@ const allows = [
     "Seasoned Seaweed",
     "Chewing Gum",
     "All Ice Cream & Desserts",
+    "Ice Cream & Desserts",
     "Cake",
     "Dessert",
     "Ice Cream",
