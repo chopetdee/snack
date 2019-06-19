@@ -180,7 +180,7 @@
       });
     }
 
-    function extract(product, text){
+    function extractOriginal(product, text){
       temp = text;
       temp = temp.split('<h1 class="product-details-tile__title">');
       temp = temp[1].split('</h1><div class="review-stats">');
@@ -197,6 +197,16 @@
       temp = temp[1].split('</a></div></div></div></div><div><div data');
       product.cat = temp[0];
     }
+    function extract(product, text){
+        temp = text;
+        temp = temp.split('<script type="application/ld+json">');
+        temp = temp[1].split('</script>');
+        let productObj = JSON.prase(temp);
+        product.name = productObj[3].productName;
+        product.img = productObj[3]["gs1:image"];
+        product.price = productObj[3].priceSpecification.price;
+        product.cat = productObj[4].itemListElement[2].name;
+    }
     function GetLotus(id,link){
       loading();
       let product = {}
@@ -206,23 +216,27 @@
       if (temp.length < 2) {
           aletShow("Oups!, ", " invalid link. too short", "danger");
           openInNewTab(link);
-          $('#indx').val("");
+          //$('#indx').val("");
           loaded();
           return;
       } else if (temp[0] != "https://shoponline.tescolotus.com/groceries/en-GB") {
           aletShow("Oups!, ", " invalid link. pattern", "danger");
           openInNewTab(link);
-          $('#indx').val("");
+          //$('#indx').val("");
           loaded();
           return;
       }
-      console.log("out");
       product.id = temp[1];
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 console.log("out1");
                 extract(product, xhr.responseText);
+                if (!product.name){
+                    aletShow("Oups!, ", " invalid link (product id).", "danger");
+                    loaded();
+                    return;
+                }
                 console.log("out2");
                 $.ajax({
                     url: '/products/add',
@@ -254,7 +268,6 @@
             }
       };
       xhr.open("GET", "/convert/"+product.id);
-      // xhr.open("GET", "http://localhost:5000/convert/"+product.id);
       xhr.send();
     }
     function createBox(pid, lid, product_name, product_url, banBool, product_decription, product_price, admin){
