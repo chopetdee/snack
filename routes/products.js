@@ -299,6 +299,7 @@ const allows = [
     "Hot Tea",
     "All Snack",
     "Snack",
+    "Snacks",
     "Popcorn",
     "Snack",
     "Other Dried Snack",
