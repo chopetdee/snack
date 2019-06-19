@@ -204,7 +204,7 @@
         product.name = productObj[3].productName;
         product.img = productObj[3]["gs1:image"];
         product.price = productObj[3].priceSpecification.price;
-        product.cat = productObj[4].itemListElement[2].name;
+        product.cat = productObj[4].itemListElement[2].item.name;
     }
     function GetLotus(id,link){
       loading();
