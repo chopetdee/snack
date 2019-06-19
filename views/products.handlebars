@@ -31,7 +31,7 @@
       GetLotus(e.target.id,dataValue);
     }
     function goToSearchPage(){
-        window.location.href = "/products/page/"+$('#searchText')[0].value;
+        window.location.href = "/products/page/"+ encodeURI($('#searchText')[0].value);
     }
 </script>
 <section class="container all">
