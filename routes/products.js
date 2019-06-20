@@ -85,9 +85,9 @@ router.get('/ban/:page', (req, res) =>{
     })
         .then(products => {
             let categories = {};
-            products.foreach(function (item){
-                categories[item.product_decription] = item.product_decription;
-            })
+            for (var i = 0 ; i < products.length; i++) {
+                categories[products[i].product_decription] = products[i].product_decription;
+            }
             categories = Object.keys(categories);
             res.render('products', { products, count:count, user_name: session[cookieToken].full_name , admin:session[cookieToken].admin, ban:true, categories})
         })
