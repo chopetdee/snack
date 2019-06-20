@@ -28,6 +28,9 @@ const Product = db.define('product', {
   },
   favorite: {
     type: Sequelize.INTEGER
+  },
+  score:{
+    type: Sequelize.INTEGER
   }
 })
 
