@@ -104,7 +104,8 @@ app.get('/', (req, res) => {
     let cookieToken = setCookie(res, req.cookies.snackToken);
     res.render('help', {
         user_name: session[cookieToken].full_name,
-        roll: session[cookieToken].roll })
+        roll: session[cookieToken].roll,
+        admin: session[cookieToken].admin })
 });
 
 app.get('/admin', (req, res) => {
@@ -112,11 +113,13 @@ app.get('/admin', (req, res) => {
     if (session[cookieToken].admin){
         res.render('admin', {
             user_name: session[cookieToken].full_name,
-            roll: session[cookieToken].roll })
+            roll: session[cookieToken].roll,
+            admin: session[cookieToken].admin})
     } else {
         res.render('help', {
             user_name: session[cookieToken].full_name,
-            roll: session[cookieToken].roll })
+            roll: session[cookieToken].roll,
+            admin: session[cookieToken].admin })
     }
 });
 
