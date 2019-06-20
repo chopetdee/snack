@@ -9,28 +9,26 @@ const Favorite = require('../models/Favorite');
 var randomstring = require("randomstring");
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-let limit = 1000; //limit item perpage
+let limit = 40; //limit item perpage
 
 // Get Product list
 router.get('/page/:page', (req, res) => {
     let cookieToken = setCookie(res, req.cookies.snackToken);
     let product_query_name = "";
+    let categories = {};
+    let count = [];
     if (!(parseInt(req.params.page))) {
         product_query_name = req.params.page;
         req.params.page = 1;
         limit = 1000;
     }
-    Sequelize.or(
-          {product_name: {[Op.like]: "%"+product_query_name+"%"}},
-          {product_decription: {[Op.like]: "%"+product_query_name+"%"}}
-        )
-    let count = [];
     Product.hasMany(Favorite, {foreignKey: 'product_id'});
     Favorite.belongsTo(Product, {foreignKey: 'product_id'});
-    Product.findAll({ where: {
-        ban: 0,
-        [Op.or]: [{product_name: {[Op.like]: "%"+product_query_name+"%"}},  {product_decription: {[Op.like]: "%"+product_query_name+"%"}}]
-    }} ).then(products =>{
+    Product.findAll({ where: { ban: 0}} ).then(products =>{
+        for (var i = 0 ; i < products.length; i++) {
+            categories[products[i].product_decription] = products[i].product_decription;
+        }
+        categories = Object.keys(categories);
         count = [];
         for(let i = 0 ; i <= (products.length-1)/limit ; i++){
             count[i] = i+1;
@@ -48,7 +46,6 @@ router.get('/page/:page', (req, res) => {
         limit: limit
     })
     .then(products => {
-        let categories = {};
         for (var i = 0 ; i < products.length; i++) {
             products[0].id=products[0].id;
             products[i].feeling = "natural";
@@ -60,9 +57,7 @@ router.get('/page/:page', (req, res) => {
                     }
                 }
             }
-            categories[products[i].product_decription] = products[i].product_decription;
         }
-        categories = Object.keys(categories);
         res.render('products', {
             products,
             count: count,
@@ -81,8 +76,10 @@ router.get('/ban/:page', (req, res) =>{
     let count = [];
     Product.findAll({where: { ban: 1 }}).then(products =>{
         for(let i = 0 ; i <= (products.length-1)/limit ; i++){
+            categories[products[i].product_decription] = products[i].product_decription;
             count[i] = i+1;
         }
+        categories = Object.keys(categories);
     });
     Product.findAll({
         where: { ban: 1 },
@@ -90,11 +87,6 @@ router.get('/ban/:page', (req, res) =>{
         limit: limit
     })
         .then(products => {
-            let categories = {};
-            for (var i = 0 ; i < products.length; i++) {
-                categories[products[i].product_decription] = products[i].product_decription;
-            }
-            categories = Object.keys(categories);
             res.render('products', { products, count:count, user_name: session[cookieToken].full_name , admin:session[cookieToken].admin, ban:true, categories})
         })
         .catch(err => console.log(err))});
@@ -121,6 +113,10 @@ router.get('/feeling/:felt/:page', (req, res) => {
             for(let i = 0 ; i <= (products.length-1)/limit ; i++){
                 count[i] = i+1;
             }
+            for (var i = 0 ; i < products.length; i++) {
+                categories[products[i].product_decription] = products[i].product_decription;
+            }
+            categories = Object.keys(categories);
         });
     Product.findAll({
         include: [{
@@ -146,9 +142,7 @@ router.get('/feeling/:felt/:page', (req, res) => {
                         }
                     }
                 }
-                categories[products[i].product_decription] = products[i].product_decription;
             }
-            categories = Object.keys(categories);
             res.render('products', {
                 products,
                 count: count,
