@@ -104,7 +104,7 @@ router.get('/ban/:page', (req, res) =>{
 
 router.get('/feeling/:felt/:page', (req, res) => {
     let cookieToken = setCookie(res, req.cookies.snackToken);
-
+    let categories = {};
     let count = [];
     Product.hasMany(Favorite, {foreignKey: 'product_id'});
     Favorite.belongsTo(Product, {foreignKey: 'product_id'});
