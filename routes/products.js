@@ -35,7 +35,6 @@ router.get('/page/:page', (req, res) => {
             model: Favorite,
             require: false,
             attributes: ['feeling', 'google_id'],
-            // where: { google_id: session[cookieToken].google_id },
         }],
         where: { ban: 0 , product_name: {[Op.like]: "%"+product_query_name+"%"} },
         // order: [ ['favorite', 'DESC'], ['love', 'DESC'] ],
@@ -55,7 +54,6 @@ router.get('/page/:page', (req, res) => {
                     }
                 }
             }
-            categories[products[i].product_decription] += 1;
             categories[products[i].product_decription].name = products[i].product_decription;
         }
         console.log(categories);
@@ -64,7 +62,7 @@ router.get('/page/:page', (req, res) => {
             count: count,
             user_name: session[cookieToken].full_name,
             admin: session[cookieToken].admin,
-            categories
+            Object.keys(categories)
         })
     })
     .catch(err => console.log(err))
@@ -88,10 +86,9 @@ router.get('/ban/:page', (req, res) =>{
         .then(products => {
             let categories = {};
             products.foreach(function (item){
-                categories[item.product_decription] += 1;
                 categories[item.product_decription].name = item.product_decription;
             })
-            res.render('products', { products, count:count, user_name: session[cookieToken].full_name , admin:session[cookieToken].admin, ban:true, categories})
+            res.render('products', { products, count:count, user_name: session[cookieToken].full_name , admin:session[cookieToken].admin, ban:true, Object.keys(categories)})
         })
         .catch(err => console.log(err))});
 //make admin
@@ -142,7 +139,6 @@ router.get('/feeling/:felt/:page', (req, res) => {
                         }
                     }
                 }
-                categories[products[i].product_decription] += 1;
                 categories[products[i].product_decription].name = products[i].product_decription;
             }
             res.render('products', {
@@ -150,7 +146,7 @@ router.get('/feeling/:felt/:page', (req, res) => {
                 count: count,
                 user_name: session[cookieToken].full_name,
                 admin: session[cookieToken].admin,
-                categories
+                Object.keys(categories)
             })
         })
         .catch(err => console.log(err))
