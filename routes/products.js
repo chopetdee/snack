@@ -266,10 +266,10 @@ router.post('/add', (req, res) => {
 // Reser score
 router.get('/reset', (req, res) => {
     let cookieToken = setCookie(res, req.cookies.snackToken);
+    console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    let { feeling } = req.body;
+    console.log (feeling);
     if(session[cookieToken].google_id){
-        console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        let { feeling } = req.body;
-        console.log (feeling);
         Product.findAll().then(products => {
                 for (var i = 0 ; i < products.length; i++) {
                     // products[0].update({ ban: 1 - products[0].ban });
