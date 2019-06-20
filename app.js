@@ -110,17 +110,17 @@ app.get('/', (req, res) => {
 
 app.get('/admin', (req, res) => {
     let cookieToken = setCookie(res, req.cookies.snackToken);
-    if (session[cookieToken].admin){
+    // if (session[cookieToken].admin){
         res.render('admin', {
             user_name: session[cookieToken].full_name,
             roll: session[cookieToken].roll,
             admin: session[cookieToken].admin})
-    } else {
-        res.render('help', {
-            user_name: session[cookieToken].full_name,
-            roll: session[cookieToken].roll,
-            admin: session[cookieToken].admin })
-    }
+    // } else {
+    //     res.render('help', {
+    //         user_name: session[cookieToken].full_name,
+    //         roll: session[cookieToken].roll,
+    //         admin: session[cookieToken].admin })
+    // }
 });
 
 // Gig routes
