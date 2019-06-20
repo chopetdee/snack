@@ -77,25 +77,26 @@
                 </td>
             </tr>
                 <td id="favorite">
-                  <div class="product likeImg">
-                    <img id="favoriteImg{{lotus_id}}"
-                    {{#unless  current_favorite}} class="oppa " {{/unless }}
-                    {{#if ../user_name}} onclick="expressFelling({{lotus_id}}, 'favorite',{{id}})" {{/if}}
-                    src="/img/heart.png">
-                    <span id="favorite{{lotus_id}}">{{favorite}}</span>
-                    <span class="tooltiptext">This is my first choice.</span>
-                  </div>
+                    {{#unless ban}}
+                      <div class="product likeImg">
+                        <img id="favoriteImg{{lotus_id}}"
+                        {{#unless  current_favorite}} class="oppa " {{/unless }}
+                        {{#if ../user_name}} onclick="expressFelling({{lotus_id}}, 'favorite',{{id}})" {{/if}}
+                        src="/img/heart.png">
+                        <span id="favorite{{lotus_id}}">{{favorite}}</span>
+                        <span class="tooltiptext">This is my first choice.</span>
+                      </div>
 
-                  <div class="product likeImg">
-                    <img id="loveImg{{lotus_id}}"
-                    {{#unless current_love}} class="oppa " {{/unless }}
-                    {{#if ../user_name}} onclick="expressFelling({{lotus_id}}, 'love',{{id}})" {{/if}}
-                    src="/img/up.png">
-                    <span id="love{{lotus_id}}">{{love}}</span>
-                    <span class="tooltiptext">I can eat if there is nothing else.</span>
-                  </div>
+                      <div class="product likeImg">
+                        <img id="loveImg{{lotus_id}}"
+                        {{#unless current_love}} class="oppa " {{/unless }}
+                        {{#if ../user_name}} onclick="expressFelling({{lotus_id}}, 'love',{{id}})" {{/if}}
+                        src="/img/up.png">
+                        <span id="love{{lotus_id}}">{{love}}</span>
+                        <span class="tooltiptext">I can eat if there is nothing else.</span>
+                      </div>
 
-                  <div class="product likeImg">
+                      <div class="product likeImg">
                     <img id="hateImg{{lotus_id}}"
                     {{#unless  current_hate}} class="oppa " {{/unless }}
                     {{#if ../user_name}} onclick="expressFelling({{lotus_id}}, 'hate','{{id}}')" {{/if}}
@@ -103,6 +104,7 @@
                     <span id="hate{{lotus_id}}">{{hate}}</span>
                     <span class="tooltiptext">I will never eat this.</span>
                   </div>
+                    {{/unless}}
                 <!-- $("#{{feeling}}Img").attr("class", ""); -->
                     {{#if ../admin}}
                       <div class="product likeImg">
