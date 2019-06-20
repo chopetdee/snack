@@ -107,6 +107,19 @@ app.get('/', (req, res) => {
         roll: session[cookieToken].roll })
 });
 
+app.get('/admin', (req, res) => {
+    let cookieToken = setCookie(res, req.cookies.snackToken);
+    if (session[cookieToken].admin){
+        res.render('admin', {
+            user_name: session[cookieToken].full_name,
+            roll: session[cookieToken].roll })
+    } else {
+        res.render('help', {
+            user_name: session[cookieToken].full_name,
+            roll: session[cookieToken].roll })
+    }
+});
+
 // Gig routes
 app.use('/products', require('./routes/products'));
 
