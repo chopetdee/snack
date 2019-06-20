@@ -41,13 +41,13 @@
 <section class="container all">
     <form action="javascript:goToSearchPage()" method="POST" id="searchBox" align: "right">
         <input id="searchText" type="text" name="searchText" autocomplete="off" class="form-control inputs" placeholder="Search..."></input>
+        <select onchange="categorySelected(this)" align: "right">
+            <option value=""></option>
+            {{#each categories}}
+            <option value="{{this}}">{{this}}</option>
+            {{/each}}
+        </select>
     </form>
-    <select onchange="categorySelected(this)" align: "right">
-        <option value=""></option>
-        {{#each categories}}
-        <option value="{{this}}">{{this}}</option>
-        {{/each}}
-    </select>
     {{#unless ban}}
         {{#if user_name}}
         <div class="form-wrap all" style="padding:10px;">
