@@ -58,6 +58,7 @@ router.get('/page/:page', (req, res) => {
             categories[products[i].product_decription] += 1;
             categories[products[i].product_decription].name = products[i].product_decription;
         }
+        console.log(categories);
         res.render('products', {
             products,
             count: count,
