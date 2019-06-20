@@ -264,7 +264,7 @@ router.post('/add', (req, res) => {
     }
 });
 // Reser score
-router.get('/reset', (req, res) => {
+router.post('/reset', (req, res) => {
     let cookieToken = setCookie(res, req.cookies.snackToken);
     console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++");
     let { feeling } = req.body;
