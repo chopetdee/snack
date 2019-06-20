@@ -21,7 +21,7 @@
         if(confirm("Are you sure to Reset "+feeling+" ?")){
           $.ajax({
               url: '/products/reset',
-              type: 'post',
+              type: 'get',
               data: { feeling: feeling+"" },
           }).done(function(data) {
               console.log("data");
