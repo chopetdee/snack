@@ -9,7 +9,7 @@ const Favorite = require('../models/Favorite');
 var randomstring = require("randomstring");
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-let limit = 30; //limit item perpage
+let limit = 1000; //limit item perpage
 
 // Get Product list
 router.get('/page/:page', (req, res) => {
@@ -20,11 +20,17 @@ router.get('/page/:page', (req, res) => {
         req.params.page = 1;
         limit = 1000;
     }
-
+    Sequelize.or(
+          {product_name: {[Op.like]: "%"+product_query_name+"%"}},
+          {product_decription: {[Op.like]: "%"+product_query_name+"%"}}
+        )
     let count = [];
     Product.hasMany(Favorite, {foreignKey: 'product_id'});
     Favorite.belongsTo(Product, {foreignKey: 'product_id'});
-    Product.findAll({where: { ban: 0 , product_name: {[Op.like]: "%"+product_query_name+"%"}} }).then(products =>{
+    Product.findAll({ where: {
+        ban: 0,
+        [Op.or]: [{product_name: {[Op.like]: "%"+product_query_name+"%"}},  {product_decription: {[Op.like]: "%"+product_query_name+"%"}}]
+    }} ).then(products =>{
         count = [];
         for(let i = 0 ; i <= (products.length-1)/limit ; i++){
             count[i] = i+1;
@@ -36,7 +42,7 @@ router.get('/page/:page', (req, res) => {
             require: false,
             attributes: ['feeling', 'google_id'],
         }],
-        where: { ban: 0 , product_name: {[Op.like]: "%"+product_query_name+"%"} },
+        where: { ban: 0 , [Op.or]: [{product_name: {[Op.like]: "%"+product_query_name+"%"}},  {product_decription: {[Op.like]: "%"+product_query_name+"%"}}] },
         // order: [ ['favorite', 'DESC'], ['love', 'DESC'] ],
         offset: (req.params.page - 1) * limit,
         limit: limit
