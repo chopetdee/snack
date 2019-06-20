@@ -31,10 +31,11 @@
       GetLotus(e.target.id,dataValue);
     }
     function goToSearchPage(){
-        window.location.href = "/products/page/"+ encodeURI($('#searchText')[0].value);
+        // window.location.href = "/products/page/"+ encodeURI($('#searchText')[0].value);
+        window.location.href = window.location.match(/^(.*)\//gi)+ encodeURI($('#searchText')[0].value);
     }
     function categorySelected(obj){
-        window.location.href = "../../"+ encodeURI(obj.value);
+        window.location.href = window.location.match(/^(.*)\//gi)+ encodeURI(obj.value);
     }
 </script>
 <section class="container all">
