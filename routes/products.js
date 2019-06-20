@@ -54,15 +54,15 @@ router.get('/page/:page', (req, res) => {
                     }
                 }
             }
-            categories[products[i].product_decription].name = products[i].product_decription;
+            categories[products[i].product_decription] = products[i].product_decription;
         }
-        console.log(categories);
+        categories = Object.keys(categories);
         res.render('products', {
             products,
             count: count,
             user_name: session[cookieToken].full_name,
             admin: session[cookieToken].admin,
-            Object.keys(categories)
+            categories
         })
     })
     .catch(err => console.log(err))
@@ -86,9 +86,10 @@ router.get('/ban/:page', (req, res) =>{
         .then(products => {
             let categories = {};
             products.foreach(function (item){
-                categories[item.product_decription].name = item.product_decription;
+                categories[item.product_decription] = item.product_decription;
             })
-            res.render('products', { products, count:count, user_name: session[cookieToken].full_name , admin:session[cookieToken].admin, ban:true, Object.keys(categories)})
+            categories = Object.keys(categories);
+            res.render('products', { products, count:count, user_name: session[cookieToken].full_name , admin:session[cookieToken].admin, ban:true, categories})
         })
         .catch(err => console.log(err))});
 //make admin
@@ -139,14 +140,15 @@ router.get('/feeling/:felt/:page', (req, res) => {
                         }
                     }
                 }
-                categories[products[i].product_decription].name = products[i].product_decription;
+                categories[products[i].product_decription] = products[i].product_decription;
             }
+            categories = Object.keys(categories);
             res.render('products', {
                 products,
                 count: count,
                 user_name: session[cookieToken].full_name,
                 admin: session[cookieToken].admin,
-                Object.keys(categories)
+                categories
             })
         })
         .catch(err => console.log(err))
