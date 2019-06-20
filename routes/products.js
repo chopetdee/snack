@@ -72,7 +72,7 @@ router.get('/page/:page', (req, res) => {
 //for admin
 router.get('/ban/:page', (req, res) =>{
     let cookieToken = setCookie(res, req.cookies.snackToken);
-
+    let categories = {};
     let count = [];
     Product.findAll({where: { ban: 1 }}).then(products =>{
         for(let i = 0 ; i <= (products.length-1)/limit ; i++){
