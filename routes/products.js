@@ -267,21 +267,10 @@ router.post('/add', (req, res) => {
 router.post('/reset', (req, res) => {
     let { feeling } = req.body;
     console.log (feeling);
-    // Product.findAll()
-    // .then(products => {
-    //
-    // })
-    // .catch(err => { res.send("Fail"); });
-});
-router.get('/resets', (req, res) => {
-    let cookieToken = setCookie(res, req.cookies.snackToken);
-    console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++");
-    let { feel } = req.body;
-    console.log (feel);
     if(session[cookieToken].google_id){
         Product.findAll().then(products => {
                 for (var i = 0 ; i < products.length; i++) {
-                    // products[0].update({ ban: 1 - products[0].ban });
+                    // products[i].update({ ban: 1 - products[0].ban });
                 }
         })
         .catch(err => { res.send("Fail"); });
