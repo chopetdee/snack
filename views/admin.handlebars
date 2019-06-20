@@ -17,20 +17,15 @@
     </div>
 </section>
 <script>
-    if(confirm("Are you sure to Ban this item?")){
-      $.ajax({
-          url: '/products/banItem',
-          type: 'post',
-          data: { lotus_id: id },
-      }).done(function(data) {
-        if (data == "Updated"){
-          $('#'+id).attr('display','none');
-          $('#'+id).attr('class','hidden');
-        }
-        loaded();
-      });
-      } else {
-          loaded();
-
-      }
+    function reset(feeling){
+        if(confirm("Are you sure to Reset "+feeling+" ?")){
+          // $.ajax({
+          //     url: '/products/banItem',
+          //     type: 'post',
+          //     data: { lotus_id: id },
+          // }).done(function(data) {
+          // });
+          } else {
+          }
+    }
 </script>
