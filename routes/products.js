@@ -267,8 +267,8 @@ router.post('/add', (req, res) => {
 router.post('/reset', (req, res) => {
     let cookieToken = setCookie(res, req.cookies.snackToken);
     console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++");
-    let { feeling } = req.body;
-    console.log (feeling);
+    let { feel } = req.body;
+    console.log (feel);
     if(session[cookieToken].google_id){
         Product.findAll().then(products => {
                 for (var i = 0 ; i < products.length; i++) {
