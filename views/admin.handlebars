@@ -19,15 +19,14 @@
 <script>
     function reset(feeling){
         if(confirm("Are you sure to Reset "+feeling+" ?")){
-        $.ajax({
-            url: '/products/reset',
-            type: 'post',
-            data: { lotus_id: feeling+"" },
-        }).done(function(data) {
-            console.log("data");
-            console.log(data);
-          }
-        });
+            $.ajax({
+                url: '/products/reset',
+                type: 'post',
+                data: { lotus_id: feeling+"" },
+            }).done(function(data) {
+                console.log("data");
+                console.log(data);
+            });
           // $.ajax({
           //     url: '/products/reset',
           //     type: 'get',
