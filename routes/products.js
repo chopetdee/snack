@@ -118,13 +118,7 @@ router.get('/feeling/:felt/:page', (req, res) => {
         where: { ban: 0 },
     })
         .then(products =>{
-            for(let i = 0 ; i <= (products.length-1)/limit ; i++){
-                count[i] = i+1;
-            }
-            for (var i = 0 ; i < products.length; i++) {
-                categories[products[i].product_decription] = products[i].product_decription;
-            }
-            categories = Object.keys(categories);
+
         });
     Product.findAll({
         include: [{
@@ -139,7 +133,14 @@ router.get('/feeling/:felt/:page', (req, res) => {
         limit: limit
     })
         .then(products => {
-            let categories = {};
+            for(let i = 0 ; i <= (products.length-1)/limit ; i++){
+                count[i] = i+1;
+            }
+            for (var i = 0 ; i < products.length; i++) {
+                categories[products[i].product_decription] = products[i].product_decription;
+            }
+            categories = Object.keys(categories);
+
             for (var i = 0 ; i < products.length; i++) {
                 products[i].feeling = "natural";
                 if (products[i].favorites.length > 0){
