@@ -106,6 +106,7 @@ router.get('/feeling/:felt/:page', (req, res) => {
     let cookieToken = setCookie(res, req.cookies.snackToken);
     let categories = {};
     let count = [];
+    let product_query_name = "";
     if (!(parseInt(req.params.page))) {
         product_query_name = req.params.page;
         req.params.page = 1;
