@@ -74,7 +74,12 @@ router.get('/ban/:page', (req, res) =>{
     let cookieToken = setCookie(res, req.cookies.snackToken);
     let categories = {};
     let count = [];
-    Product.findAll({where: { ban: 1 }}).then(products =>{
+    if (!(parseInt(req.params.page))) {
+        product_query_name = req.params.page;
+        req.params.page = 1;
+        limit = 1000;
+    }
+    Product.findAll({where: { ban: 1 , [Op.or]: [{product_name: {[Op.like]: "%"+product_query_name+"%"}},  {product_decription: {[Op.like]: "%"+product_query_name+"%"}}]}}).then(products =>{
         for(let i = 0 ; i <= (products.length-1)/limit ; i++){
             categories[products[i].product_decription] = products[i].product_decription;
             count[i] = i+1;

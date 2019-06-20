@@ -33,14 +33,17 @@
     function goToSearchPage(){
         window.location.href = "/products/page/"+ encodeURI($('#searchText')[0].value);
     }
+    function categorySelected(obj){
+        window.location.href = "/products/page/"+ encodeURI(obj.value);
+    }
 </script>
 <section class="container all">
     {{#unless ban}}
         <form action="javascript:goToSearchPage()" method="POST" id="searchBox" align: "right">
             <input id="searchText" type="text" name="searchText" autocomplete="off" class="form-control inputs" placeholder="Search..."></input>
         </form>
-        <select>
-            <option value=" "> </option>
+        <select onchange="categorySelected(this)">
+            <option value=""></option>
             {{#each categories}}
             <option value="{{this}}">{{this}}</option>
             {{/each}}
