@@ -41,7 +41,7 @@
     <form action="javascript:goToSearchPage()" method="POST" id="searchBox" align: "right">
         <input id="searchText" type="text" name="searchText" autocomplete="off" class="form-control inputs" placeholder="Search..."></input>
     </form>
-    <select onchange="categorySelected(this)">
+    <select onchange="categorySelected(this)" align: "right">
         <option value=""></option>
         {{#each categories}}
         <option value="{{this}}">{{this}}</option>
