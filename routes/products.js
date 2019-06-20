@@ -106,6 +106,11 @@ router.get('/feeling/:felt/:page', (req, res) => {
     let cookieToken = setCookie(res, req.cookies.snackToken);
     let categories = {};
     let count = [];
+    if (!(parseInt(req.params.page))) {
+        product_query_name = req.params.page;
+        req.params.page = 1;
+        limit = 1000;
+    }
     Product.hasMany(Favorite, {foreignKey: 'product_id'});
     Favorite.belongsTo(Product, {foreignKey: 'product_id'});
     Product.findAll({
