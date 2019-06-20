@@ -82,8 +82,10 @@ router.get('/ban/:page', (req, res) =>{
     }
     Product.findAll({where: { ban: 1 }}).then(products =>{
         for(let i = 0 ; i <= (products.length-1)/limit ; i++){
-            categories[products[i].product_decription] = products[i].product_decription;
             count[i] = i+1;
+        }
+        for (var i = 0 ; i < products.length; i++) {
+            categories[products[i].product_decription] = products[i].product_decription;
         }
         categories = Object.keys(categories);
     });
