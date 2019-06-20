@@ -264,7 +264,16 @@ router.post('/add', (req, res) => {
     }
 });
 // Reser score
-router.get('/reset', (req, res) => {
+router.post('/reset', (req, res) => {
+    let { lotus_id } = req.body;
+    console.log (lotus_id);
+    // Product.findAll()
+    // .then(products => {
+    //
+    // })
+    // .catch(err => { res.send("Fail"); });
+});
+router.get('/resets', (req, res) => {
     let cookieToken = setCookie(res, req.cookies.snackToken);
     console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++");
     let { feel } = req.body;
