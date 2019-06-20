@@ -222,7 +222,6 @@ router.get('/add', (req, res) => {
 router.post('/add', (req, res) => {
     console.log('/add');
     let cookieToken = setCookie(res, req.cookies.snackToken);
-
     var ress = "none";
     let {
         product_name,
@@ -264,7 +263,21 @@ router.post('/add', (req, res) => {
         res.send("not login");
     }
 });
-
+// Reser score
+router.get('/reset', (req, res) => {
+    let cookieToken = setCookie(res, req.cookies.snackToken);
+    if(session[cookieToken].google_id){
+        console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        let { feeling } = req.body;
+        console.log (feeling);
+        Product.findAll().then(products => {
+                for (var i = 0 ; i < products.length; i++) {
+                    // products[0].update({ ban: 1 - products[0].ban });
+                }
+        })
+        .catch(err => { res.send("Fail"); });
+    }
+});
 // Search for products
 router.get('/search', (req, res) => {
     let cookieToken = setCookie(res, req.cookies.snackToken);

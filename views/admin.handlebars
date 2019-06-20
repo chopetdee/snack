@@ -19,12 +19,12 @@
 <script>
     function reset(feeling){
         if(confirm("Are you sure to Reset "+feeling+" ?")){
-          // $.ajax({
-          //     url: '/products/banItem',
-          //     type: 'post',
-          //     data: { lotus_id: id },
-          // }).done(function(data) {
-          // });
+          $.ajax({
+              url: '/products/banItem',
+              type: 'post',
+              data: { "feeling": feeling },
+          }).done(function(data) {
+          });
           } else {
           }
     }
