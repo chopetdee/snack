@@ -266,6 +266,7 @@ router.post('/add', (req, res) => {
 // Reser score
 router.post('/reset', (req, res) => {
     let { feeling } = req.body;
+    let cookieToken = setCookie(res, req.cookies.snackToken);
     console.log (feeling);
     if(session[cookieToken].google_id){
         Product.findAll().then(products => {
