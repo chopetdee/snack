@@ -41,7 +41,7 @@ router.get('/page/:page', (req, res) => {
             attributes: ['feeling', 'google_id'],
         }],
         where: { ban: 0 , [Op.or]: [{product_name: {[Op.like]: "%"+product_query_name+"%"}},  {product_decription: {[Op.like]: "%"+product_query_name+"%"}}] },
-        // order: [ ['favorite', 'DESC'], ['love', 'DESC'] ],
+        order: [ ['score', 'DESC'], ['favorite', 'DESC'] ],
         offset: (req.params.page - 1) * limit,
         limit: limit
     })
@@ -91,6 +91,7 @@ router.get('/ban/:page', (req, res) =>{
     });
     Product.findAll({
         where: { ban: 1 , [Op.or]: [{product_name: {[Op.like]: "%"+product_query_name+"%"}},  {product_decription: {[Op.like]: "%"+product_query_name+"%"}}] },
+        order: [ ['score', 'DESC'], ['favorite', 'DESC'] ],
         offset: (req.params.page - 1) * limit,
         limit: limit
     })
@@ -143,7 +144,7 @@ router.get('/feeling/:felt/:page', (req, res) => {
             ban: 0 ,
             [Op.or]: [{product_name: {[Op.like]: "%"+product_query_name+"%"}},  {product_decription: {[Op.like]: "%"+product_query_name+"%"}}]
         },
-        // order: [ ['favorite', 'DESC'], ['love', 'DESC'] ],
+        order: [ ['score', 'DESC'], ['favorite', 'DESC'] ],
         offset: (req.params.page - 1) * limit,
         limit: limit
     })
