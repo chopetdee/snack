@@ -198,6 +198,8 @@ router.post('/expressFelling', (req, res) => {
             Product.findOne({ where: { lotus_id: lotus_id } })
                 .then(products => {
                     if (favorites.feeling != "natural") products[favorites.feeling] -= 1;
+                    if (["love","favorite"].includes(favorites.feeling)) products.score -= 1;
+                    if (["love","favorite"].includes(felt)) products.score += 1;
                     favorites.feeling = felt;
                     products[felt] += 1 ;
                     products.save();

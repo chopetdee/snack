@@ -89,7 +89,7 @@
                 <td id="favorite">
                     {{#unless ban}}
                       <div class="product likeImg">
-                        <img id="favoriteImg{{lotus_id}}"
+                        <img id="favoriteImg{{lotus_id}}" name="{{score}}"
                         {{#unless  current_favorite}} class="oppa " {{/unless }}
                         {{#if ../user_name}} onclick="expressFelling({{lotus_id}}, 'favorite',{{id}})" {{/if}}
                         src="/img/heart.png">
@@ -159,7 +159,6 @@
         });
         } else {
             loaded();
-
         }
     }
     function changePage(page){
