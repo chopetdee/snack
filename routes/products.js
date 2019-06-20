@@ -43,6 +43,7 @@ router.get('/page/:page', (req, res) => {
         limit: limit
     })
     .then(products => {
+        let categories = {};
         for (var i = 0 ; i < products.length; i++) {
             products[0].id=products[0].id;
             products[i].feeling = "natural";
@@ -54,12 +55,15 @@ router.get('/page/:page', (req, res) => {
                     }
                 }
             }
+            categories[products[i].product_decription] += 1;
+            categories[products[i].product_decription].name = products[i].product_decription;
         }
         res.render('products', {
             products,
             count: count,
             user_name: session[cookieToken].full_name,
-            admin: session[cookieToken].admin
+            admin: session[cookieToken].admin,
+            categories
         })
     })
     .catch(err => console.log(err))
@@ -81,18 +85,12 @@ router.get('/ban/:page', (req, res) =>{
         limit: limit
     })
         .then(products => {
-            Favorite.findAll({
-                    where: {
-                        google_id: session[cookieToken].google_id
-                    }
-                })
-                .then(favorites => {
-                    // favorites.forEach(function(item) {
-                    //     console.log("item");
-                    //     console.log(item);
-                    // })
-                });
-            res.render('products', { products, count:count, user_name: session[cookieToken].full_name , admin:session[cookieToken].admin, ban:true})
+            let categories = {};
+            products.foreach(function (item){
+                categories[item.product_decription] += 1;
+                categories[item.product_decription].name = item.product_decription;
+            })
+            res.render('products', { products, count:count, user_name: session[cookieToken].full_name , admin:session[cookieToken].admin, ban:true, categories})
         })
         .catch(err => console.log(err))});
 //make admin
@@ -132,6 +130,7 @@ router.get('/feeling/:felt/:page', (req, res) => {
         limit: limit
     })
         .then(products => {
+            let categories = {};
             for (var i = 0 ; i < products.length; i++) {
                 products[i].feeling = "natural";
                 if (products[i].favorites.length > 0){
@@ -142,12 +141,15 @@ router.get('/feeling/:felt/:page', (req, res) => {
                         }
                     }
                 }
+                categories[products[i].product_decription] += 1;
+                categories[products[i].product_decription].name = products[i].product_decription;
             }
             res.render('products', {
                 products,
                 count: count,
                 user_name: session[cookieToken].full_name,
-                admin: session[cookieToken].admin
+                admin: session[cookieToken].admin,
+                categories
             })
         })
         .catch(err => console.log(err))
