@@ -265,8 +265,8 @@ router.post('/add', (req, res) => {
 });
 // Reser score
 router.post('/reset', (req, res) => {
-    let { lotus_id } = req.body;
-    console.log (lotus_id);
+    let { feeling } = req.body;
+    console.log (feeling);
     // Product.findAll()
     // .then(products => {
     //

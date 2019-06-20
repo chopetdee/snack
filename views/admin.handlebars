@@ -22,19 +22,11 @@
             $.ajax({
                 url: '/products/reset',
                 type: 'post',
-                data: { lotus_id: feeling+"" },
+                data: { feeling: feeling+"" },
             }).done(function(data) {
                 console.log("data");
                 console.log(data);
             });
-          // $.ajax({
-          //     url: '/products/reset',
-          //     type: 'get',
-          //     data: { feeling: feeling+"" },
-          // }).done(function(data) {
-          //     console.log("data");
-          //     console.log(data);
-          // });
           } else {
           }
     }
