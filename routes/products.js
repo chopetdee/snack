@@ -267,7 +267,7 @@ router.post('/add', (req, res) => {
 router.post('/reset', (req, res) => {
     let { feeling } = req.body;
     let cookieToken = setCookie(res, req.cookies.snackToken);
-    console.log (feeling);
+    let neEqzoro = { [Op.not]: 0};
     let condotionF = { where: { feeling: { [Op.not]: 'hate'} }};
     let condotionP = { where: { [Op.or]: [{love: neEqzoro} ,{favorite: neEqzoro}] }};
     let resetZ = {
@@ -275,7 +275,6 @@ router.post('/reset', (req, res) => {
         love : 0,
         score : 0
     };
-    let neEqzoro = { [Op.not]: 0};
     if (feeling == 'hard'){
         condotionF = {};
         condotionP = {where: { [Op.or]: [{love: neEqzoro},{favorite: neEqzoro}, {hate: neEqzoro}] }};
