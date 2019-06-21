@@ -275,7 +275,7 @@ router.post('/reset', (req, res) => {
         condotionP = { where: { [Op.or]: [{love: 1},{favorite:1}] }};
     }
     if(session[cookieToken].google_id){
-        Favorite.destroy(condotionF).then(() =>{}).catch(err => { return res.send(err); });
+        Favorite.destroy(condotionF).then(() =>{}).catch(err => { console.log(err); });
         Product.findAll(condotionP).then(products =>{
             for (var i = 0 ; i < products.length; i++) {
                 if (feeling == 'hard'){
@@ -285,8 +285,8 @@ router.post('/reset', (req, res) => {
                 products.love = 0;
             }
             products.save();
-            return res.send(feeling);
-        }).catch(err => { return res.send(err); });
+            console.log(feeling);
+        }).catch(err => { console.log(err); });
     }
 });
 // Search for products
