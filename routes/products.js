@@ -276,8 +276,8 @@ router.post('/reset', (req, res) => {
         score : 0
     };
     if (feeling == 'hard'){
-        condotionF = {};
-        condotionP = {where: { [Op.or]: [{love: neEqzoro},{favorite: neEqzoro}, {hate: neEqzoro}] }};
+        condotionF = { where: {}, truncate: true };
+        condotionP = { where: { [Op.or]: [{love: neEqzoro},{favorite: neEqzoro}, {hate: neEqzoro}] }};
         resetZ.hate = 0;
     }
     if(session[cookieToken].google_id){
