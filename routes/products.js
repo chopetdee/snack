@@ -276,7 +276,7 @@ router.post('/reset', (req, res) => {
     }
     if(session[cookieToken].google_id){
         Favorite.destroy(condotion);
-        Product.findAll(condotionP).then((products){
+        Product.findAll(condotionP).then(products =>{
             for (var i = 0 ; i < products.length; i++) {
                 if (feeling == 'hard'){
                     products.hate = 0;
@@ -285,8 +285,7 @@ router.post('/reset', (req, res) => {
                 products.love = 0;
             }
             products.save();
-        })
-        .catch(err => { res.send("Fail"); });
+        }).catch(err => { res.send("Fail"); });
     }
 });
 // Search for products
