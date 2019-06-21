@@ -269,7 +269,7 @@ router.post('/reset', (req, res) => {
     let cookieToken = setCookie(res, req.cookies.snackToken);
     console.log (feeling);
     let condotionF = { where: { feeling: { [Op.not]: 'hate'} }};
-    let condotionP = { where: { [Op.or]: [{love: 1},{favorite:1}] }};
+    let condotionP = { where: { [Op.or]: [{love: neEqzoro} ,{favorite: neEqzoro}] }};
     let resetZ = {
         favorite : 0,
         love : 0,
