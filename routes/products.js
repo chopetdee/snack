@@ -272,7 +272,8 @@ router.post('/reset', (req, res) => {
     let condotionP = { where: { [Op.or]: [{love: 1},{favorite:1}] }};
     let resetZ = {
         favorite : 0,
-        love : 0
+        love : 0,
+        score : 0
     };
     if (feeling == 'hard'){
         condotionF = {};
