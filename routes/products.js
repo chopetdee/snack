@@ -285,6 +285,7 @@ router.post('/reset', (req, res) => {
                 products.love = 0;
             }
             products.save();
+            res.send(feeling);
         }).catch(err => { res.send("Fail"); });
     }
 });
