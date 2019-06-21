@@ -286,7 +286,7 @@ router.post('/reset', (req, res) => {
             }
             products.save();
             return res.send(feeling);
-        }).catch(err => { res.send(err); });
+        }).catch(err => { return res.send(err); });
     }
 });
 // Search for products
