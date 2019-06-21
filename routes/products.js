@@ -268,25 +268,20 @@ router.post('/reset', (req, res) => {
     let { feeling } = req.body;
     let cookieToken = setCookie(res, req.cookies.snackToken);
     console.log (feeling);
-    let condotionF = {};
-    let condotionP = {where: { [Op.or]: [{love: 1},{favorite:1}, {hate:1}] }};
-    if (feeling == 'soft'){
-        condotionF = { where: { feeling: { [Op.not]: 'hate'} }};
-        condotionP = { where: { [Op.or]: [{love: 1},{favorite:1}] }};
+    let condotionF = { where: { feeling: { [Op.not]: 'hate'} }};
+    let condotionP = { where: { [Op.or]: [{love: 1},{favorite:1}] }};
+    let resetZ = {
+        favorite : 0,
+        love : 0
+    };
+    if (feeling == 'hard'){
+        condotionF = {};
+        condotionP = {where: { [Op.or]: [{love: 1},{favorite:1}, {hate:1}] }};
+        resetZ.hate = 0;
     }
     if(session[cookieToken].google_id){
-        Favorite.destroy(condotionF).then(() =>{}).catch(err => { console.log(err); });
-        Product.findAll(condotionP).then(products =>{
-            for (var i = 0 ; i < products.length; i++) {
-                if (feeling == 'hard'){
-                    products.hate = 0;
-                }
-                products.favorite = 0;
-                products.love = 0;
-            }
-            products.save();
-            console.log(feeling);
-        }).catch(err => { console.log(err); });
+        Favorite.destroy(condotionF);
+        Product.update(resetZ, condotionP);
     }
 });
 // Search for products
