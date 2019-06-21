@@ -271,7 +271,7 @@ router.post('/reset', (req, res) => {
     let condotionF = {};
     let condotionP = {where: { [Op.or]: [{love: 1},{favorite:1}, {hate:1}] }};
     if (feeling == 'soft'){
-        condotionF = { where: { feeling: { $not: 'hate'}}};
+        condotionF = { where: { feeling: { [Op.not]: 'hate'} }};
         condotionP = { where: { [Op.or]: [{love: 1},{favorite:1}] }};
     }
     if(session[cookieToken].google_id){
