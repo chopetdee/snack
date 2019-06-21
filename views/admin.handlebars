@@ -4,25 +4,21 @@
         <h1>Admin</h1>
         <br>
         <br>
-        <button type="button" onclick="reset(['love'])" class="btn btn-primary">Reset Like</button>
+        <button type="button" onclick="reset('soft')" class="btn btn-primary">Reset Favarite & Like</button>
         <br>
         <br>
-        <button type="button" onclick="reset(['favorite'])" class="btn btn-primary">Reset Favarite</button>
         <br>
         <br>
-        <button type="button" onclick="reset(['love','favorite'])" class="btn btn-primary">Reset Favarite&Like</button>
-        <br>
-        <br>
-        <button type="button" onclick="reset(['love','hate','favorite'])" class="btn btn-primary">Reset Everything</button>
+        <button type="button" onclick="reset('hard')" class="btn btn-primary">Reset Everything!</button>
     </div>
 </section>
 <script>
     function reset(feeling){
-        if(confirm("Are you sure to Reset "+feeling+" ?")){
+        if(confirm("Are you sure to Reset this?")){
             $.ajax({
                 url: '/products/reset',
                 type: 'post',
-                data: { feeling: feeling+"" },
+                data: { feeling: feeling},
             }).done(function(data) {
                 console.log("data");
                 console.log(data);

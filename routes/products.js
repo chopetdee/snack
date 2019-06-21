@@ -268,11 +268,23 @@ router.post('/reset', (req, res) => {
     let { feeling } = req.body;
     let cookieToken = setCookie(res, req.cookies.snackToken);
     console.log (feeling);
+    let condotionF = {};
+    let condotionP = {where: { {[Op.or]: [{love: 1},{favorite:1}, {hate:1}] }}};
+    if (feeling == 'soft'){
+        condotionF = { where: { feeling: { $not: 'hate'}}};
+        condotionP = {where: { {[Op.or]: [{love: 1},{favorite:1}] }}};
+    }
     if(session[cookieToken].google_id){
-        Product.findAll().then(products => {
-                for (var i = 0 ; i < products.length; i++) {
-                    // products[i].update({ ban: 1 - products[0].ban });
+        Favorite.destroy(condotion);
+        Product.findAll(condotionP).then((products){
+            for (var i = 0 ; i < products.length; i++) {
+                if (feeling == 'hard'){
+                    products.hate = 0;
                 }
+                products.favorite = 0;
+                products.love = 0;
+            }
+            products.save();
         })
         .catch(err => { res.send("Fail"); });
     }
