@@ -365,7 +365,10 @@
                 let tddivspan = $("<span></span>");
                 tddivspan.appendTo(tddiv);
                 tddivspan.attr("class", "tooltiptext");
-                tddivspan.text( "This is my first choice.");
+                if (feeling == "favorite"){ tddivspan.text( "This is my first choice."); }
+                else if (feeling == "love"){ tddivspan.text( "I can eat if there is nothing else."); }
+                else if (feeling == "hate"){ tddivspan.text( "I will never eat this."); }
+                else { tddivspan.text( ""); }
         return tddiv;
     }
     function openInNewTab(url) {
