@@ -304,6 +304,13 @@ router.get('/search', (req, res) => {
 
 const allows = [
     "All Beverages",
+    "Porridge & Soup",
+    "Seasoning Sauce",
+    "Tomato Ketchup",
+    "Sugar",
+    // "",
+    // "",
+    // "",
     "Beverages",
     "Essence & Healthy Drinks",
     "Sports & Energy Drinks",
